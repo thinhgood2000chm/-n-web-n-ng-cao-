@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const {OAuth2Client} = require('google-auth-library');
 const {JWT_SECRET}=process.env
-
+const post = require("../models/post")
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
 
@@ -18,38 +18,53 @@ exports.loginGG= (req,res)=>{
         });
         const payload = ticket.getPayload();
         const userid = payload['sub'];
-        var flag = false
-        if(payload.email.includes('@student.tdtu.edu.vn')){// gặp tk đúng yêu cầu thì thêm tk sau đó trả về true 
-            //if(payload.email){
-                accountStudent.find({email: payload.email},(err,doc)=>{
-                    if(doc){
-              
-                        flag= true
+        
+        if(payload.email.includes('@student.tdtu.edu.vn')){// gặp tk đúng yêu cầu thì thêm tk sau đó trả về true
+               accountStudent.find({},(err,doc)=>{
+            
+                    if(doc.length===0){
+                        //console.log("dã vao day null ");
+                        let newAccountStudent = new accountStudent({
+                            iss: payload.iss,
+                            hd: payload.hd,
+                            fullname: payload.name,
+                            email: payload.email, 
+                            picture: payload.picture,
+                            given_name: payload.given_name,
+                            family_name: payload.family_name,
+                            })
+                            newAccountStudent.save()
+                            //.then(()=>console.log("thêm tài khoản sv thành công ")).catch(e=>console.log(e))
                     }
-                    else {
-                        flag=  false
-                       
+                    else if(doc.length>0){
+                        for(var i =0;i<doc.length;i++){
+                            if(doc[i].email===payload.email){
+                            //console.log("doc",doc);
+                            console.log("dã vao day");
+                            return true
+                        }
                     }
+                    }
+                        
+                     
+                        else{
+                            console.log("dã vao day 2");
+                            let newAccountStudent = new accountStudent({
+                                iss: payload.iss,
+                                hd: payload.hd,
+                                fullname: payload.name,
+                                email: payload.email, 
+                                picture: payload.picture,
+                                given_name: payload.given_name,
+                                family_name: payload.family_name,
+                                })
+                                newAccountStudent.save()
+                                .then(()=>console.log("thêm tài khoản sv thành công ")).catch(e=>console.log(e))
+                        }
+                    
                 })
-       
-             if(flag){
-                 return true
-             }else {
-                let newAccountStudent = new accountStudent({
-                    iss: payload.iss,
-                    hd: payload.hd,
-                    fullname: payload.fullname,
-                    email: payload.email, 
-                    picture: payload.picture,
-                    given_name: payload.given_name,
-                    family_name: payload.family_name,
-    
-                    })
-                    newAccountStudent.save()
-                return true
-             }
-
                
+                return true
             }
         }
     verify().then((result)=>{
@@ -135,4 +150,20 @@ exports.login=(req,res,next)=>{
     })
 
 }
+}
+
+// tạo bài viết ( thêm dữ liệu vào database)
+exports.insertPost=(req,res)=>{
+    var {nameUser,email, messageText}= req.params
+    console.log(nameUser,messageText,email);
+    let newPost = new post({
+        email: email,
+        name: nameUser,
+        message:messageText,
+
+    })
+    newPost.save()
+    .then(console.log(" thêm bài viết thành công"))
+    .catch(e=>console.log(e))
+ 
 }

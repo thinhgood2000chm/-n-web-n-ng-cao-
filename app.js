@@ -4,6 +4,7 @@ const express = require("express")
 const cookieParser = require("cookie-parser")
 const mongoose= require("mongoose")
 const morgan = require("morgan")
+const fetch = require("node-fetch")
 const app = express()
 
 //khai bao cua gg 
@@ -13,6 +14,7 @@ const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleuserco
 const client = new OAuth2Client(CLIENT_ID);
 // kết thúc khai báo gg 
 app.set("view engine", "ejs")
+
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({extended:false}))

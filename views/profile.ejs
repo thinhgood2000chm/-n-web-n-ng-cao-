@@ -13,8 +13,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/public/main.js"></script>
 
-    <link href="style.css" rel="stylesheet">
+    <link href="/public/stylesheets.css" rel="stylesheet">
 </head>
 <body class=" bg-dark">
     <main role="main">
@@ -40,17 +41,17 @@
                 
                               </div>
                               <div class="col mb-3 ml-n3 ml-md-n2">
-                
+                              <%doc.forEach(d=>{%>
                                 <!-- Pretitle -->
                                 <h6 class="header-pretitle">
-                                  infor
+                                  <%=d.class%>
                                 </h6>
                 
                                 <!-- Title -->
                                 <h1 class="header-title">
-                                  username
+                                  <%=d.fullname%>
                                 </h1>
-                
+                              <%})%>
                               </div>
                               <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
                 

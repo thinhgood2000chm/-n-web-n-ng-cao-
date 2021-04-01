@@ -1,7 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const {OAuth2Client} = require('google-auth-library');
-const authenticate= require('../middleWare/authenticate')
+const authenticate= require('../middleWare/authenticate');
+const accountStudent = require("../models/accountStudent");
+const checkAuthen = require("../middleWare/checkAuthenGG")
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
 
@@ -33,6 +35,31 @@ router.get('/error',(req,res)=>{
 router.get('/admin/Account',(req,res)=>{
     res.render('admin-account')
 })
+
+//router của sv 
+router.get('/student/profile',checkAuthen,(req,res)=>{
+    let token = req.cookies['session-token']
+    let user = {}
+     async function verify() {
+         const ticket = await client.verifyIdToken({
+             idToken: token,
+             audience: CLIENT_ID,  
+         });
+         const payload = ticket.getPayload();
+             user.email= payload.email;
+       }
+       verify().then(()=>{
+           console.log(user.email);
+           accountStudent.find({email: user.email},(err, doc)=>{
+               console.log(doc);
+               res.render('profile',{doc})
+           })
+          
+       })
+            
+})
+
+/*
 function checkAuthen(req,res,next){
     // var token = req.body.token
     let token = req.cookies['session-token']
@@ -55,5 +82,5 @@ function checkAuthen(req,res,next){
            res.redirect("/login")
        });
  }
-
+*/
  module.exports= router

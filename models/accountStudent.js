@@ -5,10 +5,7 @@ const accountStudentSchema = new Schema({
     iss: String,
     hd: String,
     fullname: String,
-    email:{
-        type:String,
-        unique: true
-    }, 
+    email: String,
     picture: String,
     given_name: String,
     famly_name: String,
