@@ -18,35 +18,40 @@ exports.loginGG= (req,res)=>{
         });
         const payload = ticket.getPayload();
         const userid = payload['sub'];
- 
+        var flag = false
         if(payload.email.includes('@student.tdtu.edu.vn')){// gặp tk đúng yêu cầu thì thêm tk sau đó trả về true 
-            if(payload.email){
+            //if(payload.email){
                 accountStudent.find({email: payload.email},(err,doc)=>{
-                    if(doc[0].email ===payload.email){
-                        return true
+                    if(doc){
+              
+                        flag= true
+                    }
+                    else {
+                        flag=  false
+                       
                     }
                 })
+       
+             if(flag){
+                 return true
+             }else {
+                let newAccountStudent = new accountStudent({
+                    iss: payload.iss,
+                    hd: payload.hd,
+                    fullname: payload.fullname,
+                    email: payload.email, 
+                    picture: payload.picture,
+                    given_name: payload.given_name,
+                    family_name: payload.family_name,
+    
+                    })
+                    newAccountStudent.save()
                 return true
-            }
-            else{ let newAccountStudent = new accountStudent({
-                iss: payload.iss,
-                hd: payload.hd,
-                fullname: payload.fullname,
-                email: payload.email, 
-                picture: payload.picture,
-                given_name: payload.given_name,
-                family_name: payload.family_name,
+             }
 
-                })
-                newAccountStudent.save()
-                //then(()=>console.log("thêm tk sv thành công")).catch(e=> console.log(e))
-                return true // true sẽ trả về ở result}
-
-            }
                
-
+            }
         }
-    }
     verify().then((result)=>{
         if(result){// result trả về true 
             console.log('result',result);
