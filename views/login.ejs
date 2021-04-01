@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://icons.getbootstrap.com/icons/image/">
+    <script src="/public/main.js"></script>
+    
+    <link href="/public/stylesheets.css" rel="stylesheet">
+</head>
+<body class="text-center bg-dark"> 
+    <main class="form-signin bg-light">
+        <h2 class="text-login"><a href="#">CatSocial</a></h2>
+        <img class="mr-4" src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" alt="" width="70" height="70">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <div class="body-login">
+          <form action="/login" method="post" class="container" >
+            <!--input email-->
+            <div class="form-floating">
+                <input type="email" placeholder="username@example.com" id="email" name="email" required>
+            </div>
+            <!--input password-->
+            <div class="form-floating">
+                <input type="password" placeholder="Enter Password" id="password" name="password" required>
+            </div>
+            <div class="checkbox mb-3"> 
+
+            </div>
+            <label class="text">
+            <input  type="checkbox" checked="checked" name="remember" style="margin-bottom:15px; "> Remember me
+            </label>
+            <br>
+            <!--login bằng tk đăng ký-->
+            <button type="submit" class="btn btn-primary" id="btn-login" name="login" >Login</button>
+            <hr>
+            <!--
+            <p class="text-center">
+                <small class="text-muted text-center">
+                  Don't have an account yet? <a href="/signup">Sign up</a>.
+                </small>
+            </p>-->
+            <!--nút login với gg-->
+            <!--<div data-onsuccess="onSignIn" class="google btn btn-danger"><i class="fa fa-google fa-fw">
+            </i> Login with Google+
+            </div>-->
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </form>
+        </div>
+    </main>  
+    <a href="#" onclick="signOut();">Sign out</a>
+</body>
+</html>
+
+    
+
+
+
+
+
+
+<!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+
+
+
+
+
+
+
+
+  

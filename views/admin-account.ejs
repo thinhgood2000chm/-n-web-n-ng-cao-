@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CatSocial</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://icons.getbootstrap.com/icons/image/">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+
+        <!-- Header -->
+        <div class="header">
+          <div class="header-body">
+            <div class="row align-items-center">
+              <div class="col">
+
+                <!-- Pretitle -->
+                <h6 class="header-pretitle">
+                  Overview
+                </h6>
+
+                <!-- Title -->
+                <h1 class="header-title text-truncate">
+                  Accounts
+                </h1>
+
+              </div>
+              <div class="col-auto">
+
+                <!-- Buttons -->
+                <a href="/signup" class="btn btn-primary ml-2">
+                  Add account
+                </a>
+
+              </div>
+            </div> <!-- / .row -->
+            <!--Phần nội dung thông tin account-->
+            <div class="card">
+              <!--card header-->
+              <div class="card-header bg-light">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h5 class="mb-0" id="followers">Friends <span class="d-none d-sm-inline-block">(12)</span></h5>
+                  </div>
+                  <div class="col">
+                    <form>
+                      <div class="row no-gutters">
+                        <div class="col"><input class="form-control form-control-sm" type="text" placeholder="Search..."></div>
+                        <div class="col d-md-block d-none"><select class="custom-select custom-select-sm ml-2">
+                            <option selected="selected">All followers</option>
+                            <option>A-Z</option>
+                            <option>Other</option>
+                          </select></div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!--body card-->
+              <div class="card-body bg-light p-0">
+                    <div class="dashboard-data-table">
+                      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row mx-1"><div class="col-sm-12 col-md-6 px-3"></div><div class="col-sm-12 col-md-6 px-3"></div></div><div class="table-responsive"><table class="table table-sm table-dashboard fs--1 data-table border-bottom dataTable no-footer" data-options="{&quot;responsive&quot;:false,&quot;pagingType&quot;:&quot;simple&quot;,&quot;lengthChange&quot;:false,&quot;searching&quot;:false,&quot;pageLength&quot;:8,&quot;columnDefs&quot;:[{&quot;targets&quot;:[0,6],&quot;orderable&quot;:false}],&quot;language&quot;:{&quot;info&quot;:&quot;_START_ to _END_ Items of _TOTAL_ — <a href=\&quot;#!\&quot; class=\&quot;font-weight-semi-bold\&quot;> view all <span class=\&quot;fas fa-angle-right\&quot; data-fa-transform=\&quot;down-1\&quot;></span> </a>&quot;},&quot;buttons&quot;:[&quot;copy&quot;,&quot;excel&quot;]}" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                        <thead class="bg-200 text-900">
+                          <tr role="row"><th class="no-sort pr-1 align-middle data-table-row-bulk-select sorting_asc" rowspan="1" colspan="1" aria-label=" " style="width: 31.6px;">
+                              <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select" id="checkbox-bulk-purchases-select" type="checkbox" data-checkbox-body="#purchases" data-checkbox-actions="#purchases-actions" data-checkbox-replaced-element="#dashboard-actions" indeterminate="false"><label class="custom-control-label" for="checkbox-bulk-purchases-select"></label></div>
+                            </th>
+                            <th class="sort pr-1 align-middle sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Customer: activate to sort column ascending" style="width: 171.4px;">username</th>
+                            <th class="sort pr-1 align-middle sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 179.4px;">Email</th>
+                            <th class="sort pr-1 align-middle sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending" style="width: 349.8px;">password</th>
+                            <th class="no-sort pr-1 align-middle data-table-row-action sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 69.8px;"></th></tr>
+                        </thead>
+                        <tbody id="purchases">
+                        <tr class="btn-reveal-trigger odd" role="row">
+                            <td class="align-middle sorting_1">
+                              <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select-target" type="checkbox" id="checkbox-0"><label class="custom-control-label" for="checkbox-0"></label></div>
+                            </td>
+                            <th class="align-middle"><a href="profile.html">username</a></th><!--username-->
+                            <td class="align-middle">username@gmail.com</td><!--email-->
+                            <td class="align-middle">.........</td><!--pass-->
+                            <!--nav card-->
+                            <td class="align-middle white-space-nowrap">
+                                    <div class="dropdown show">
+                                        <a href="#" data-toggle="dropdown" data-display="static">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+            
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">view</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                        </div>
+                                    </div>
+                            </td>
+                          </tr><tr class="btn-reveal-trigger even" role="row">
+                            <td class="align-middle sorting_1">
+                              <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select-target" type="checkbox" id="checkbox-1"><label class="custom-control-label" for="checkbox-1"></label></div>
+                            </td>
+                            <th class="align-middle"><a href="profile.html">username</a></th><!--username-->
+                            <td class="align-middle">username@mail.ru</td><!--email-->
+                            <td class="align-middle">...........</td><!--password-->
+                            <!--nav card-->
+                            <td class="align-middle white-space-nowrap">
+                              <div class="dropdown show">
+                                <a href="#" data-toggle="dropdown" data-display="static">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">view</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr><tr class="btn-reveal-trigger odd" role="row">
+                            <td class="align-middle sorting_1">
+                              <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select-target" type="checkbox" id="checkbox-2"><label class="custom-control-label" for="checkbox-2"></label></div>
+                            </td>
+                            <th class="align-middle"><a href="profile.html">username</a></th><!--username-->
+                            <td class="align-middle">username@yahoo.com</td><!--email-->
+                            <td class="align-middle">............</td><!--password-->
+                            <!--nav card-->
+                            <td class="align-middle white-space-nowrap">
+                              <div class="dropdown show">
+                                <a href="#" data-toggle="dropdown" data-display="static">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">view</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr><tr class="btn-reveal-trigger even" role="row">
+                            <td class="align-middle sorting_1">
+                              <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select-target" type="checkbox" id="checkbox-3"><label class="custom-control-label" for="checkbox-3"></label></div>
+                            </td>
+                            <th class="align-middle"><a href="profile.html">username</a></th><!--username-->
+                            <td class="align-middle">username@gmail.com</td><!--email-->
+                            <td class="align-middle">.........</td><!--password-->
+                            <!--nav card-->
+                            <td class="align-middle white-space-nowrap">
+                              <div class="dropdown show">
+                                <a href="#" data-toggle="dropdown" data-display="static">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">view</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tbody>
+                      </table>
+                    </div>
+                    <div class="row mx-1 align-items-center justify-content-center justify-content-md-between">
+                      
+                      <div class="col-auto">
+                        <div class="dataTables_paginate paging_simple" id="DataTables_Table_0_paginate">
+                          <ul class="pagination pagination-sm">
+                            <!--nút pre trang-->
+                            <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                              <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                            </li>
+                            <!--nút next trang-->
+                            <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                              <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">Next</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   
+                </div>
+              </div>
+            </div>
+  </div>
+</body>
+</html>
