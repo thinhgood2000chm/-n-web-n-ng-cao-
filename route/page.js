@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const post = require('../models/post')
 const {OAuth2Client} = require('google-auth-library');
 const authenticate= require('../middleWare/authenticate');
 const accountStudent = require("../models/accountStudent");
@@ -9,8 +10,13 @@ const client = new OAuth2Client(CLIENT_ID);
 
 
 router.get("/",checkAuthen,(req,res)=>{
-    let user = req.user
-    res.render("index",{user})
+    //let user = req.user
+    post.find({},(err, doc)=>{
+        if(err)
+            console.log(err);
+        else   res.render("index",{doc})
+    })
+  
 })
 router.get('/signup',(req,res)=>{
     res.render('signup')
@@ -57,6 +63,13 @@ router.get('/student/profile',checkAuthen,(req,res)=>{
           
        })
             
+})
+
+router.get('/user/notification',(req,res)=>{
+    res.render('department-notfication')
+})
+router.get('/edit-account',(req,res)=>{
+    res.render('edit-account')
 })
 
 /*

@@ -1,4 +1,12 @@
 
+$(function () {
+    'use strict'
+
+    $('[data-toggle="offcanvas"]').on('click', function () {
+      $('.offcanvas-collapse').toggleClass('open')
+    })
+})
+
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     var xhr = new XMLHttpRequest();
@@ -31,16 +39,30 @@ console.log('User signed out.');
 
 
 $(document).ready(function(){
-    $("#btnPosted").click(()=>{
+    $("#btnPosted").click((e)=>{
+        e.preventDefault();
         var nameUser =document.getElementById("recipient-name").value
         // dòng 119 index.ejs
         var messageText= document.getElementById("message-text").value
         var hiddenEmailOfPost= document.getElementById("hiddenEmailOfPost").value
         console.log(hiddenEmailOfPost);
-        fetch("http://localhost:3000/insertPost/"+hiddenEmailOfPost+"/"+nameUser+"/"+messageText,{
-            method: "POST"
-        })
-        .then( res=> console.log(res))
-        .catch(console.log)
-    })
+       
+        $.ajax({
+            url: 'http://localhost:3000/insertPost/',
+            type: 'POST',
+            data: {
+                nameUser: nameUser,
+                messageText: messageText,
+                hiddenEmailOfPost: hiddenEmailOfPost
+            }
+        }).done(function(ketqua) {
+            //console.log(ketqua);
+            if(ketqua.code===0){
+                console.log(" da vao day ");
+
+                // code taoj cacs thuws bene front end bawngf js  hoặc jquery @@
+            }
+        });
+        
+    });
     })

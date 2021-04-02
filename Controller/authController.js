@@ -40,7 +40,7 @@ exports.loginGG= (req,res)=>{
                         for(var i =0;i<doc.length;i++){
                             if(doc[i].email===payload.email){
                             //console.log("doc",doc);
-                            console.log("dã vao day");
+                            //console.log("dã vao day");
                             return true
                         }
                     }
@@ -48,7 +48,7 @@ exports.loginGG= (req,res)=>{
                         
                      
                         else{
-                            console.log("dã vao day 2");
+                            //console.log("dã vao day 2");
                             let newAccountStudent = new accountStudent({
                                 iss: payload.iss,
                                 hd: payload.hd,
@@ -154,16 +154,33 @@ exports.login=(req,res,next)=>{
 
 // tạo bài viết ( thêm dữ liệu vào database)
 exports.insertPost=(req,res)=>{
-    var {nameUser,email, messageText}= req.params
-    console.log(nameUser,messageText,email);
+    var {nameUser,hiddenEmailOfPost, messageText}= req.body
+    console.log(nameUser,messageText,hiddenEmailOfPost);
     let newPost = new post({
-        email: email,
+        email: hiddenEmailOfPost,
         name: nameUser,
         message:messageText,
 
     })
     newPost.save()
-    .then(console.log(" thêm bài viết thành công"))
+   
+        //console.log(" thêm bài viết thành công")
+        .then(()=>{
+            console.log(" them data thanh cong");
+        })
+    
     .catch(e=>console.log(e))
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.send({
+        code: 0, 
+    
+        data: {
+            email: hiddenEmailOfPost,
+            name: nameUser,
+            message:messageText,
+        }
+    });
+
  
 }

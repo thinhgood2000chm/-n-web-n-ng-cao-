@@ -159,24 +159,25 @@
           <div class="container-fluid container-fluid p-0">
             <div class="row">
               <div class="col-12 col-lg-8">
+                
                   <div class="card">
                       <div class="card-body h-100">
+                        <%doc.forEach((d)=>{%>
                           <div class="media">
-                              <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">
+                              <!--<img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">-->
                               <div class="media-body">
                                   <small class="float-right text-navy">5m ago</small>
-                                  <p class="mb-2"><strong>@username</strong></p>
-                                  <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit
-                                      vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.</p>
+                                  <p class="mb-2"><strong><%=d.name%></strong></p>
+                                  <p><%=d.message%></p>
                                     <!--hình ảnh được upload-->
-                                  <div class="row no-gutters mt-1">
+                                  <!--<div class="row no-gutters mt-1">
                                       <div class="col-6">
                                           <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" class="img-fluid pr-1" alt="Unsplash">
                                       </div>
                                       <div class="col-6">
                                           <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" class="img-fluid pl-1" alt="Unsplash">
                                       </div>
-                                  </div>
+                                  </div>-->
       
                                   <small class="text-muted">Today 7:51 pm</small><br><!--time real dòng trạng thái-->
                                   <!--nút like-->
@@ -194,12 +195,15 @@
                                       <a class="pr-2" href="#">
                                       <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
                                       </a>
+                                      <%d.comment.forEach(c=>{%>
+                     
                                       <div class="media-body">
                                           <p class="text-muted">
-                                              <strong>@username</strong>: Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
+                                              <strong><%=c.emailUComment%></strong>: Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
                                               mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.
                                           </p>
                                       </div>
+                                      <%})%>
                                   </div>
                                   <hr>
                                   <!--dòng comment line trang tin-->
@@ -219,7 +223,8 @@
                                         <label class="sr-only">Leave a comment...</label>
                                         <textarea class="form-control form-control-flush" data-toggle="autosize" rows="1" placeholder="Leave a comment" style="overflow: hidden; overflow-wrap: break-word; height: 50px;"></textarea>
                                       </form>
-                  
+                                      
+                                      <hr>
                                     </div>
                                     
                                     <div class="col-auto align-self-end">
@@ -240,7 +245,7 @@
                               </div>
                              
                           </div>
-      
+                          <%})%>
                           <hr>
                           <!--hết trang tin-->
                           <div class="media-body">
@@ -251,6 +256,7 @@
                       </div>
                       
                   </div>
+                 
               </div>
               
 

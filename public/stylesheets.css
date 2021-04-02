@@ -143,3 +143,226 @@ body {
 #btn-login{
   width: 100%;
 }
+
+/*Sign up*/
+.form-select{
+  background: #f1f1f1;
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+}
+/*end*/
+
+
+/*style dòng coment line*/
+.form-control:not(.custom-select) {
+  padding-right: 0;
+}
+textarea.form-control {
+    height: auto;
+}
+
+/*department-notfication*/
+.text-siderbar{
+  color: #ffffff;
+}.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color:var(--blue);
+  background-color: #ffffff;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  border: none;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 0;
+  border: none;
+  margin: 10px;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+/**icon bar*/
+.icon-bar {
+  color: rgb(0, 0, 0);
+  font-size: 36px;
+}
+
+
+/*end*/
+/*edit-profile*/
+
+element.style {
+  background-image: url(coverimage.jpg);
+}
+
+.bg-holder {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  will-change: transform,opacity,filter;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+input[type="file" i] {
+  appearance: initial;
+  background-color: initial;
+  cursor: default;
+  align-items: baseline;
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space: pre;
+  text-align: start !important;
+  padding: initial;
+  border: initial;
+  overflow: hidden !important;
+}
+
+.cover-image-file-input {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .25rem .5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  border-radius: .25rem;
+  font-size: .83333rem;
+  color: #fff;
+  border: 1px solid #d8e2ef;
+  -webkit-box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  background-color: rgba(0,0,0,.9);
+}
+label {
+  font-size: .83333rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+label {
+  font-weight: 500!important;
+}
+
+.avatar-profile {
+  position: absolute;
+  bottom: 0;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+avatar-5xl {
+  height: 10.5rem;
+  width: 10.5rem;
+}
+.avatar {
+  position: relative;
+  display: inline-block;
+}
+.shadow-sm {
+  -webkit-box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.rounded-circle {
+  border-radius: 50%!important;
+}
+.img-thumbnail {
+  padding: .25rem;
+  background-color: #fff;
+  border: 3px solid #fff;
+  border-radius: .25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+
+/*style admin*/
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/*end*/
