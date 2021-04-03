@@ -8,8 +8,10 @@ const accountStudentSchema = new Schema({
     email: String,
     picture: String,
     given_name: String,
-    famly_name: String,
-    class: String,
+    family_name: String,
+    username: String,
+    biography: String,
+    className: String,
     faculty: String
 },{timestamps: true})
 const accountStudent = mongoose.model('accountStudent', accountStudentSchema, 'accountStudent')

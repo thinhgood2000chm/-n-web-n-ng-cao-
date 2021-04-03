@@ -18,7 +18,7 @@ app.set("view engine", "ejs")
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({extended:false}))
-app.use('/public',express.static('public'))
+app.use(express.static('public'))
 app.use('/',require('./route/page'))
 
 app.use('/',require('./route/auth'))

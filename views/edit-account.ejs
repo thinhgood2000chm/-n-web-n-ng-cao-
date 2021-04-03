@@ -50,23 +50,26 @@
                                     <h5 class="card-title mb-0">Public info</h5>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form action ="/changeProfile1" method="post"enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-8">
+                                                <input type ="hidden" value="<%=doc.email%>" name ="email">
                                                 <div class="form-group">
                                                     <label for="inputUsername">Username</label>
-                                                    <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                                                    <input type="text" class="form-control" id="inputUsername" name = "username" value="<%=doc.fullname%>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputUsername">Biography</label>
-                                                    <textarea rows="2" class="form-control" id="inputBio" placeholder="Tell something about yourself"></textarea>
+                                                    <textarea rows="2" name="biography" class="form-control" id="inputBio" placeholder="Tell something about yourself"><%=doc.biography%></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="text-center">
-                                                    <img alt="Chris Wood" src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" class="rounded-circle img-responsive mt-2" width="128" height="128">
+                                                <div class="text-center">   
+                                                    <img alt="Chris Wood" src="<%=doc.picture%>" width="128" height="128">
                                                     <div class="mt-2">
-                                                        <span class="btn btn-primary"><i class="fa fa-upload"></i> Upload</span>
+                                                        <!-- lồng 2 button thành 1 -->
+                                                        <!--<input type="button" class=" btn btn-primary" id="my-button" value="Upload image">class="d-none"  -->
+                                                        <input type="file"  name="image" id="my-file" accept=".jpg, .jpeg, .png" >
                                                     </div>
                                                     <small>For best results, use an image at least 128px by 128px in .jpg format</small>
                                                 </div>
@@ -84,29 +87,29 @@
                                     <h5 class="card-title mb-0">Private info</h5>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form action= "/changeProfile2" method="post">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="inputFirstName">First name</label>
-                                                <input type="text" class="form-control" id="inputFirstName" placeholder="First name">
+                                                <input type="text" class="form-control" id="inputFirstName" value="<%=doc.given_name%>" name="firstname">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="inputLastName">Last name</label>
-                                                <input type="text" class="form-control" id="inputLastName" placeholder="Last name">
+                                                <input type="text" class="form-control" id="inputLastName" value="<%=doc.family_name%>"name="lastname">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="inputEmail4">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                        </div>
+                                        <!--<div class="form-group">
+                                            <label for="inputEmail4">   </label>-->
+                                            <input type="hidden" class="form-control" id="inputEmail" value="<%=doc.email%>" name="email">
+                                        <!--</div>-->
                                         <div class="form-group">
                                             <label for="inputAddress">Class</label>
-                                            <input type="text" class="form-control" id="inputClass" placeholder="18050401">
+                                            <input type="text" class="form-control" id="inputClass" placeholder="18050401" value="<%=doc.className%>"name="className">
                                         </div>
                                         <div class="form-group ">
-                                            <label for="inputState">State</label>
-                                            <select id="inputState" class="form-control">
-                                                <option selected="">Choose...</option>
+                                            <label for="inputState">faculty</label>
+                                            <select id="inputState" class="form-control" name = "faculty" >
+                                                <option selected="">Choose...</option>  
                                                 <option>Khoa Luật</option>
                                                 <option>Khoa Mỹ thuật công nghiệp</option>
                                                 <option>Khoa Điện-Điện tử</option>
@@ -131,6 +134,7 @@
                                     <h5 class="card-title">Password</h5>
 
                                     <form>
+                                        <input type="hidden" value = "<%=doc.email%>">
                                         <div class="form-group">
                                             <label for="inputPasswordCurrent">Current password</label>
                                             <input type="password" class="form-control" id="inputPasswordCurrent">

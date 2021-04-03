@@ -2,6 +2,7 @@ const account = require('../models/account')
 const accountStudent = require('../models/accountStudent')
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const fs = require('fs');
 const {OAuth2Client} = require('google-auth-library');
 const {JWT_SECRET}=process.env
 const post = require("../models/post")
@@ -150,6 +151,53 @@ exports.login=(req,res,next)=>{
     })
 
 }
+}
+
+// thay đổi thông tin cá nhân 
+exports.changeProfile2= (req, res)=>{
+    var {firstname, lastname , email , className ,faculty} = req.body
+    console.log(firstname, lastname , email , className ,faculty);
+
+    let updateData = {
+        given_name: firstname,
+        family_name:lastname,
+        className: className,
+        faculty : faculty
+    }
+    // trong đồ án môn esdc thì dùng cách promise còn trong này dùng function đều theo kiểu es6
+    accountStudent.findOneAndUpdate({email:email},{$set:updateData},(err)=>{
+        if(err)
+            console.log(err);
+        else {
+            console.log(" cập nhật dữ liệu thành công");
+            res.redirect('/edit-account')
+        }
+    })
+
+}
+
+exports.changeProfile1=(req,res)=>{
+
+    images = req.file;
+    //console.log("image",images)
+    pathImage= `public/upload/${images.originalname}`
+   // console.log(image);
+    fs.renameSync(images.path,pathImage)
+    var image = pathImage.slice(6)
+
+    var {email,username, biography} = req.body
+    console.log(username, biography, email);
+    let updateData = {
+        fullname: username, 
+        picture : image,
+        biography:biography
+    }
+    accountStudent.findOneAndUpdate({email:email},{$set:updateData})
+    .then(()=>{
+        console.log(" cập nhật trên thành công ");
+        res.redirect('/edit-account')
+    })
+    .catch(e=>console.log(e))
 }
 
 // tạo bài viết ( thêm dữ liệu vào database)
