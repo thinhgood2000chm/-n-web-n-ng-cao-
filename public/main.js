@@ -1,11 +1,5 @@
 
-$(function () {
-    'use strict'
 
-    $('[data-toggle="offcanvas"]').on('click', function () {
-      $('.offcanvas-collapse').toggleClass('open')
-    })
-})
 
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
@@ -39,9 +33,16 @@ console.log('User signed out.');
 
 
 $(document).ready(function(){
+    // hàm dùng đẻ tạo nhiều attribute trong 1 lần 
+    function setAttributes(el, attrs) {
+        for(var key in attrs) {
+          el.setAttribute(key, attrs[key]);
+        }
+      }
     $("#btnPosted").click((e)=>{
         e.preventDefault();
         var nameUser =document.getElementById("recipient-name").value
+        var hiddenPicture = document.getElementById("hiddenPicture").value
         // dòng 119 index.ejs
         var messageText= document.getElementById("message-text").value
         var hiddenEmailOfPost= document.getElementById("hiddenEmailOfPost").value
@@ -53,19 +54,31 @@ $(document).ready(function(){
             data: {
                 nameUser: nameUser,
                 messageText: messageText,
-                hiddenEmailOfPost: hiddenEmailOfPost
+                hiddenEmailOfPost: hiddenEmailOfPost,
+                hiddenPicture:hiddenPicture
             }
         }).done(function(ketqua) {
-            //console.log(ketqua);
+            console.log("ketqua",ketqua.data.imageUser);
             if(ketqua.code===0){
                 console.log(" da vao day ");
-
+                var parentMedia = document.getElementById("parentMedia")
+                var imageUser = document.createElement("img")
+                setAttributes(imageUser,{"src":ketqua.data.imageUser,"class":"rounded-circle mr-3"})
+                 //imageUser.setAttribute({"src":"ketqua.data.imageUser","class":"rounded-circle mr-3"})
+                 parentMedia.appendChild(imageUser)
                 // code taoj cacs thuws bene front end bawngf js  hoặc jquery @@
             }
         });
         
     });
-
+    $(function () {
+        'use strict'
+  
+        $('[data-toggle="offcanvas"]').on('click', function () {
+          $('.offcanvas-collapse').toggleClass('open')
+        })
+      })
+  
     /*$('#my-button').click(function(){
         $('#my-file').click();
     });*/

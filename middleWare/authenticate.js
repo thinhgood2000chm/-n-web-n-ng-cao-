@@ -6,7 +6,7 @@ const {JWT_SECRET}= process.env
         if(token){
             jwt.verify(token,JWT_SECRET,(err, decode)=>{
                 if(err){
-                    console.log("chay vao day");
+                    //console.log("chay vao day");
                     res.redirect('/login')
                 }
                 else {

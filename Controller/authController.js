@@ -1,4 +1,4 @@
-const account = require('../models/account')
+const accountF = require('../models/account')
 const accountStudent = require('../models/accountStudent')
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
@@ -119,7 +119,7 @@ exports.login=(req,res,next)=>{
         res.render('login',{errMess:"vui long nhap toi thieu 6 kis tu",email,password})
     }
     else{
-    account.findOne({email:email})
+    accountF.findOne({email:email})
     .then(account=>{
         if(account){
             bcrypt.compare(password,account.password,(err, result)=>{
@@ -133,10 +133,10 @@ exports.login=(req,res,next)=>{
                     res.cookie('jwt', token)
                     res.cookie('account',account.email)
            
-                    if(account.email.includes("thinh")){
-                        res.redirect("/admin")
-                    }
-                    else res.redirect('/index')// chỗ này chưa sửa cho từng khoa
+                   // if(account.email.includes("thinh")){
+                        res.redirect("/")
+                   // }
+                    //else res.redirect('/index')// chỗ này chưa sửa cho từng khoa
                 }
                 else {
            
@@ -165,10 +165,11 @@ exports.changeProfile2= (req, res)=>{
         faculty : faculty
     }
     // trong đồ án môn esdc thì dùng cách promise còn trong này dùng function đều theo kiểu es6
-    accountStudent.findOneAndUpdate({email:email},{$set:updateData},(err)=>{
+    accountStudent.findOneAndUpdate({email:email},{$set:updateData},(err,result)=>{
         if(err)
             console.log(err);
         else {
+            
             console.log(" cập nhật dữ liệu thành công");
             res.redirect('/edit-account')
         }
@@ -200,11 +201,65 @@ exports.changeProfile1=(req,res)=>{
     .catch(e=>console.log(e))
 }
 
+
+// đổi mật khẩu
+exports.changePassword=(req,res)=>{
+    var{emailHidden, password, newPassword, newPasswordConfirm}= req.body;
+    if(!password){
+        console.log("vui longf nhaapj mk");
+    }
+    else if(!newPassword){
+        console.log("vui lòng nhập mk mới");
+    }
+    else if(!newPasswordConfirm){
+        console.log("vui lòng nhập lại mk");
+    }
+    else{
+        accountF.findOne({email:emailHidden})
+    .then(account=>{
+        //console.log(account);
+        if(account){
+            bcrypt.compare(password,account.password,(err, result)=>{
+                if(err){
+                     console.log("di vao day ", err);
+                }
+                else if(!result){
+                    console.log("mật khẩu không trùng khớp");
+                }
+                if(result){// true/ false
+                    bcrypt.hash(newPassword,10,(error, hashedPass)=>{
+  
+                        if(error){
+                            console.log(error);
+                        }
+                        else {
+                            accountF.findOneAndUpdate({email: emailHidden},{password: hashedPass},(errors)=>{
+                                if(errors){
+                                    console.log(errors);
+                                }
+                            else{
+                                console.log("cập nhật mk thành công");
+                                res.redirect("/edit-account")// chỗ này sẽ làm cái alert giống shop
+                            }
+                        })
+                        }
+                  
+                    })
+                    }
+                })
+            }
+        })
+        .catch(e=>console.log(e))
+    }
+   // })
+    }
 // tạo bài viết ( thêm dữ liệu vào database)
 exports.insertPost=(req,res)=>{
-    var {nameUser,hiddenEmailOfPost, messageText}= req.body
+    var {hiddenPicture, nameUser,hiddenEmailOfPost, messageText}= req.body
     console.log(nameUser,messageText,hiddenEmailOfPost);
     let newPost = new post({
+        imageUser: hiddenPicture,
+        image:null,
         email: hiddenEmailOfPost,
         name: nameUser,
         message:messageText,
@@ -227,6 +282,9 @@ exports.insertPost=(req,res)=>{
             email: hiddenEmailOfPost,
             name: nameUser,
             message:messageText,
+            imageUser: hiddenPicture,
+            image:null,
+
         }
     });
 

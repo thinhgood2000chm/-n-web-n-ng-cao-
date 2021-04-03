@@ -8,5 +8,5 @@ router.post('/login', authController.login)
 router.post('/changeProfile2',authController.changeProfile2)
 router.post('/changeProfile1',upload.single('image'),authController.changeProfile1)
 router.post('/insertPost', authController.insertPost)
-  
+router.post("/changePassword", authController.changePassword)
 module.exports=router

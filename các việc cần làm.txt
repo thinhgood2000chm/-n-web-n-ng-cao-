@@ -1,2 +1,6 @@
 3.1 đã hoàn thành
 3.2 đã có đăng kí nhwung chưa có phân quyền 
+	thay đổi thông tin thành công
+thay đổi pasword thành công
+chưa thiết lập route phòng khoa chỉ dổi pass còn student chỉ đôi thông tin 
+3.3 đã hoàn thành thêm dữ liệu, đang tiến hàng tạo bào viết mới trong ajax

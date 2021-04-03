@@ -16,10 +16,12 @@
     <script src="/public/main.js"></script>
 </head>
 <body>
+    <%-include("header")%>
     <main class="container p-0">
+        
         <div class="container-fluid p-0">
             <!--icon bar-->
-             <a class="icon-bar" href="index.html"><i class="fa fa-home"></i></a>
+             <a class="icon-bar" href="/"><i class="fa fa-home"></i></a>
             <h1 class="h3 mb-3">Settings</h1>
 
             <div class="row">
@@ -133,20 +135,20 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Password</h5>
 
-                                    <form>
-                                        <input type="hidden" value = "<%=doc.email%>">
+                                    <form action="/changePassword" method = "post">
+                                        <input type="hidden" name ="emailHidden" value = "<%=doc.email%>">
                                         <div class="form-group">
                                             <label for="inputPasswordCurrent">Current password</label>
-                                            <input type="password" class="form-control" id="inputPasswordCurrent">
+                                            <input type="password" name = "password" class="form-control" id="inputPasswordCurrent">
                                             <small><a href="#">Forgot your password?</a></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputPasswordNew">New password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew">
+                                            <input type="password"  name = "newPassword" class="form-control" id="inputPasswordNew">
                                         </div>
                                         <div class="form-group">
                                             <label for="inputPasswordNew2">Verify password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew2">
+                                            <input type="password" name ="newPasswordConfirm" class="form-control" id="inputPasswordNew2">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                     </form>

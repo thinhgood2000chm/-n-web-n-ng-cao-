@@ -5,6 +5,8 @@ const postSchema = new Schema({
     email: String,
     name: String,
     message: String,
+    imageUser: String,
+    image:[String],
     comment: [{
         emailUComment: String,
         content: String,
