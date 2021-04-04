@@ -366,3 +366,6 @@ avatar-5xl {
   .sidenav a {font-size: 18px;}
 }
 /*end*/
+#styleInputComment{
+overflow: hidden; overflow-wrap: break-word; height: 50px;
+}
