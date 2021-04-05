@@ -13,6 +13,8 @@
     <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="/assets/img/favicons/favicon.ico">
     <link rel="canonical" href="https://icons.getbootstrap.com/icons/image/">
+    <!--link dể upload ảnh bằng ajax-->
+  
 
     <script src="/public/main.js"></script>
     <link href="/public/stylesheets.css" rel="stylesheet">
@@ -117,7 +119,7 @@
                           <!--<img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">-->
                          
                           <div class="media-body" id="parentMediaBody">
-                              <small class="float-right text-navy">5m ago</small>
+                
                               <!--<p class="mb-2"><strong>doc[i].name</strong></p>
                               <p>doc[i].message</p>--->
                                 <!--dda den cho nay -->
@@ -133,7 +135,7 @@
                               </div>-->
   
                              
-                              <small class="text-muted">Today 7:51 pm</small><br><!--time real dòng trạng thái-->
+                              <!--<small class="text-muted">Today 7:51 pm</small><br>time real dòng trạng thái-->
                               <!--nút like-->
                               <!--<a href="#" class="btn btn-sm btn-danger mt-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart feather-sm">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> Like</a>
@@ -197,7 +199,7 @@
                                 </div>
                            
                               </div>
-                              <hr>
+                             <!--<hr>-->
                           </div>
                          
                       </div>
@@ -211,18 +213,17 @@
                                     <!--<img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">-->
                                     <img src="<%=doc[i].imageUser%>" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">
                                     <div class="media-body">
-                                        <small class="float-right text-navy">5m ago</small>
+                                     
                                         <p class="mb-2"><strong><%=doc[i].name%></strong></p>
                                         <p><%=doc[i].message%></p>
                                           <!--hình ảnh được upload-->
-                                        <!--<div class="row no-gutters mt-1">
+                                        <div class="row no-gutters mt-1">
+                                          <%for(var j =0 ; j < doc[i].image.length ; j++){%>
                                             <div class="col-6">
-                                                <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" class="img-fluid pr-1" alt="Unsplash">
+                                                <img src="<%=doc[i].image[j]%>" class="img-fluid pr-1" alt="Unsplash">
                                             </div>
-                                            <div class="col-6">
-                                                <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" class="img-fluid pl-1" alt="Unsplash">
-                                            </div>
-                                        </div>-->
+                                        <%}%>
+                                        </div>
             
                                         <small class="text-muted"><%=doc[i].createdAt%></small><br><!--time real dòng trạng thái-->
                                         <!--nút like-->

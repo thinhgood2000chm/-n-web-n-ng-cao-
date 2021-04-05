@@ -8,7 +8,7 @@ const {JWT_SECRET}=process.env
 const post = require("../models/post")
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
-
+const multer = require("multer")
 exports.loginGG= (req,res)=>{
     let token = req.body.token
     //console.log(token);
@@ -255,11 +255,49 @@ exports.changePassword=(req,res)=>{
     }
 // tạo bài viết ( thêm dữ liệu vào database)
 exports.insertPost=(req,res)=>{
+    /*var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, __dirname+'/public/upload')
+        },
+        filename: function (req, file, cb) {
+          cb(null, file.fieldname + '-' + Date.now())
+        }
+      })
+       
+      var upload = multer({ storage: storage }).single("image_uploads")
+    
+      upload(req, res, function (err) {
+        if (err ) {
+         console.log(err);
+     
+        } 
+        var name = req.body.nameUser
+        console.log(name);
+        //console.log(res);
+    })*/
+
+    
     var {hiddenPicture, nameUser,hiddenEmailOfPost, messageText}= req.body
-    console.log(nameUser,messageText,hiddenEmailOfPost);
+    console.log("cái đang cân",nameUser,messageText,hiddenEmailOfPost);
+    images = req.files;// file đối với single , files đối với multi
+    //console.log("image",images);
+    var pathImage=[]
+    var image=[]
+    console.log(images.length);
+    for(var i =0;i<images.length;i++){
+        //console.log(images[i].originalname);
+        pathImage=`public/upload/${images[i].originalname}`
+        fs.renameSync(images[i].path,pathImage)
+        image.push(pathImage.slice(6))
+    }
+    console.log(image);
+
+
+  
+  
     let newPost = new post({
         imageUser: hiddenPicture,
-        image:null,
+        image:image,
         email: hiddenEmailOfPost,
         name: nameUser,
         message:messageText,
@@ -281,12 +319,13 @@ exports.insertPost=(req,res)=>{
         data: {
             email: hiddenEmailOfPost,
             name: nameUser,
+            image:JSON.stringify(image),
             message:messageText,
             imageUser: hiddenPicture,
-            image:null,
+         
 
         }
     });
-
+ 
  
 }

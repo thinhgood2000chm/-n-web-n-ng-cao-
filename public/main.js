@@ -46,25 +46,79 @@ $(document).ready(function(){
         e.preventDefault();
         
         var nameUser =document.getElementById("recipient-name").value
+        // đây là ảnh đại diện của người dùng đang đăng bài
         var hiddenPicture = document.getElementById("hiddenPicture").value
         // dòng 119 index.ejs
         var messageText= document.getElementById("message-text").value
         var hiddenEmailOfPost= document.getElementById("hiddenEmailOfPost").value
-        //console.log(hiddenEmailOfPost);
+        
+        var inputImage = document.getElementById("image_uploads") 
+       
+        // ảnh người dùng đăng lên
+        var file = inputImage.files;
+        var formData = new FormData();
+        formData.append("nameUser",nameUser)
+        formData.append("hiddenPicture",hiddenPicture)
+        formData.append("messageText",messageText)
+        formData.append("hiddenEmailOfPost",hiddenEmailOfPost)
+        //formData.append("file",$("#image_uploads")[0].files[0]) single upload
+        for (var i =0;i<=file.length;i++){
+          formData.append("file",file[i])
+        }
+        for (var value of formData.values()) {
+            console.log("value",value);
+        }
+        /*for(var x=0;x<file.length;x++){
+               //console.log("file[x]",file[x]);
+            formData.append("file",file[x])
+         
+        }  
+        for (var value of formData.values()) {
+            console.log("value",value);
+        }*/
+        /*var header={
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        };
+        axios.post('/insertPost', formData,header)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });*/
+       /*  var ImageArray=[]
+         var  imageName ="/upload/"
+        for ( var i =0;i<file.length;i++ ){
+            ImageArray.push(imageName+file[i].name)
+            
+        }
+        console.log(ImageArray);*/
+
+
         $('#myModal').hide();
         $('.modal-backdrop').hide();
         $.ajax({
             url: 'http://localhost:3000/insertPost/',
             type: 'POST',
-            data: {
-                nameUser: nameUser,
+            dataType: 'JSON',
+            enctype:"multipart/form-data",
+            contentType: false,
+            processData: false,
+            data: 
+              formData
+               
+                /*nameUser: nameUser,
                 messageText: messageText,
                 hiddenEmailOfPost: hiddenEmailOfPost,
-                hiddenPicture:hiddenPicture
-            }
+                ImageArray:JSON.stringify(ImageArray) ,
+                hiddenPicture:hiddenPicture*/
+
+            
         }).done(function(ketqua) {
 
-            //console.log("ketqua",ketqua.data);
+            console.log("ketqua",ketqua.data);
             if(ketqua.code===0){
                 console.log(" da vao day ");
                 var parentMedia = document.getElementById("parentMedia")
@@ -73,7 +127,9 @@ $(document).ready(function(){
                 //set ảnh đại diện
                 setAttributes(imageUser,{"src":ketqua.data.imageUser,"class":"rounded-circle mr-3","width":"56", "height":"56"})
                 parentMedia.appendChild(imageUser)
+
                 // thiết lập bên trong của thẻ media-body
+                //thời gian tạo bài viết
                 // tên người đăng mới
                 var ptag= document.createElement("p")
                 setAttributes(ptag,{"class":"mb-2", "id":"parentOfStrong"})
@@ -90,7 +146,21 @@ $(document).ready(function(){
                 p2.appendChild(nodeMess)
                 parentMediaBody.appendChild(p2)
                 
-
+                // hình ảnh sau khi đăng 127
+                imageRecieveFromServer = JSON.parse(ketqua.data.image)
+                console.log("imageRecieveFromServer",imageRecieveFromServer);
+                var divTagsubParentImage =document.createElement("div")
+                setAttributes(divTagsubParentImage,{"class":"row no-gutters mt-1"})
+                for(var i=0;i<imageRecieveFromServer.length;i++){
+                    var divTagChild= document.createElement("div")
+                    setAttributes(divTagChild,{"class":"col-6"})
+                    var imageUpload= document.createElement("img")
+                    setAttributes(imageUpload,{"src":imageRecieveFromServer[i],"class":"img-fluid pr-1"})
+                    divTagChild.appendChild(imageUpload)
+                    divTagsubParentImage.appendChild(divTagChild)
+                    parentMediaBody.appendChild(divTagsubParentImage)
+                    }
+                    
                 //thời gian tạo bài đăng
                 var smallTag = document.createElement("small")
                 setAttributes(smallTag,{"class":"text-muted"})
@@ -106,12 +176,7 @@ $(document).ready(function(){
                 setAttributes(aTag,{"href":"#","class":"btn btn-sm btn-danger mt-1"})
                 var iTagIconLike = document.createElement("i")
                 setAttributes(iTagIconLike,{"class":"fa fa-heart-o"})
-                /*var svgTag = document.createElement("svg")
-                setAttributes(svgTag,{"xmlns":"http://www.w3.org/2000/svg" ,"width":"24", "height":"24", "viewBox":"0 0 24 24", "fill":"none", "stroke":"currentColor", "stroke-width":"2", "stroke-linecap":"round", "stroke-linejoin":"round", "class":"feather feather-heart feather-sm"})
-                var pathTag = document.createElement("path")
-                setAttributes(pathTag,{"d":"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"})
-                svgTag.appendChild(pathTag)
-                aTag.appendChild(svgTag)*/
+          
                 aTag.appendChild(iTagIconLike)
                 aTag.appendChild(nodeATag)
                 parentMediaBody.appendChild(aTag)
