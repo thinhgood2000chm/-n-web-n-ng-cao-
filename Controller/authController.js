@@ -129,6 +129,7 @@ exports.login=(req,res,next)=>{
                     })
                 }
                 if(result){
+                    console.log("đã đúngg mk");
                     let token = jwt.sign({id: account._id},JWT_SECRET,{expiresIn:'1h'})
                     res.cookie('jwt', token)
                     res.cookie('account',account.email)
@@ -255,46 +256,21 @@ exports.changePassword=(req,res)=>{
     }
 // tạo bài viết ( thêm dữ liệu vào database)
 exports.insertPost=(req,res)=>{
-    /*var storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-          cb(null, __dirname+'/public/upload')
-        },
-        filename: function (req, file, cb) {
-          cb(null, file.fieldname + '-' + Date.now())
-        }
-      })
-       
-      var upload = multer({ storage: storage }).single("image_uploads")
-    
-      upload(req, res, function (err) {
-        if (err ) {
-         console.log(err);
-     
-        } 
-        var name = req.body.nameUser
-        console.log(name);
-        //console.log(res);
-    })*/
 
-    
     var {hiddenPicture, nameUser,hiddenEmailOfPost, messageText}= req.body
     console.log("cái đang cân",nameUser,messageText,hiddenEmailOfPost);
     images = req.files;// file đối với single , files đối với multi
     //console.log("image",images);
     var pathImage=[]
     var image=[]
-    console.log(images.length);
+    //console.log(images.length);
     for(var i =0;i<images.length;i++){
         //console.log(images[i].originalname);
         pathImage=`public/upload/${images[i].originalname}`
         fs.renameSync(images[i].path,pathImage)
         image.push(pathImage.slice(6))
     }
-    console.log(image);
 
-
-  
-  
     let newPost = new post({
         imageUser: hiddenPicture,
         image:image,
@@ -326,6 +302,57 @@ exports.insertPost=(req,res)=>{
 
         }
     });
+
+
+    }
+exports.deletePost=(req,res)=>{
+    var id = req.body.id
+    console.log(id);
+    id=JSON.parse(id)
+    post.findByIdAndRemove(id)
+    .then(()=>{
+        console.log( " xóa bài thành công");
+    })
+    .catch(e=>console.log(e))
+        
+    res.setHeader('Content-Type', 'application/json');
+    res.send({
+        code:0,
+        data:{
+            id:id
+        }
+    })
+}
+exports.updatePost=(req,res)=>{
+    var {id, message}= req.body
  
- 
+    console.log( id, message);
+    images = req.files;// file đối với single , files đối với multi
+    
+    var pathImage=[]
+    var image=[]
+    for(var i =0;i<images.length;i++){
+        pathImage=`public/upload/${images[i].originalname}`
+        fs.renameSync(images[i].path,pathImage)
+        image.push(pathImage.slice(6))
+    }
+    data={
+        message: message,
+        image: image
+    }
+    post.findOneAndUpdate({_id:id},{$set:data})
+    .then(()=>{
+        console.log("update trạng thái thành công");
+    })
+    .catch(e=>console.log(e))
+
+    res.setHeader("Content-Type","application/json")
+    res.send({
+        code: 0,
+        data:{
+            id:id,
+            message: message,
+            image: image// ở đây ko chuyển qua stirngify nên qua bên mainjs ko cần json.parse
+        }
+    })
 }

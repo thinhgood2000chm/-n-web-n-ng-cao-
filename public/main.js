@@ -68,34 +68,6 @@ $(document).ready(function(){
         for (var value of formData.values()) {
             console.log("value",value);
         }
-        /*for(var x=0;x<file.length;x++){
-               //console.log("file[x]",file[x]);
-            formData.append("file",file[x])
-         
-        }  
-        for (var value of formData.values()) {
-            console.log("value",value);
-        }*/
-        /*var header={
-            headers:{
-                "Content-Type":"multipart/form-data"
-            }
-        };
-        axios.post('/insertPost', formData,header)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });*/
-       /*  var ImageArray=[]
-         var  imageName ="/upload/"
-        for ( var i =0;i<file.length;i++ ){
-            ImageArray.push(imageName+file[i].name)
-            
-        }
-        console.log(ImageArray);*/
-
 
         $('#myModal').hide();
         $('.modal-backdrop').hide();
@@ -106,16 +78,7 @@ $(document).ready(function(){
             enctype:"multipart/form-data",
             contentType: false,
             processData: false,
-            data: 
-              formData
-               
-                /*nameUser: nameUser,
-                messageText: messageText,
-                hiddenEmailOfPost: hiddenEmailOfPost,
-                ImageArray:JSON.stringify(ImageArray) ,
-                hiddenPicture:hiddenPicture*/
-
-            
+            data: formData
         }).done(function(ketqua) {
 
             console.log("ketqua",ketqua.data);
@@ -244,7 +207,7 @@ $(document).ready(function(){
                 setAttributes(iTagIconCamera,{"class":"fa fa-camera"})
                 
                 aTagIconCamera.appendChild(iTagIconCamera)
-                // icon kpej giaays
+                // icon kẹp giaays
                 var aTagIconPaperclip = document.createElement("a")
                 setAttributes(aTagIconPaperclip,{"class":"text-reset mr-3", "href":"#!",  "data-toggle":"tooltip" ,"title":"", "data-original-title":"Attach file"})
                 var iTagIconPaperclip= document.createElement("i")
@@ -260,13 +223,137 @@ $(document).ready(function(){
 
                 parentMedia.appendChild(parentMediaBody)
         
-
-
-                // code taoj cacs thuws bene front end bawngf js  hoặc jquery @@
             }
         });
         
     });
+
+    $(".btnDelete").click(e=>{
+      e.preventDefault();
+      $("#confirmDelete").modal("show")
+      var btn = e.target
+      var id=btn.dataset.id
+      $("#modalBtnDelete").attr('data-id',id)
+      //console.log(id);
+
+    
+    })
+    $("#modalBtnDelete").click(e=>{
+      $("#confirmDelete").modal("hide")
+      
+      var btn = e.target
+      var id=btn.dataset.id
+     // console.log(id);
+    $.ajax({
+      url: 'http://localhost:3000/deletePost',
+      type: 'POST',
+      data: {
+        id:JSON.stringify(id)
+      }
+     }).done(function(ketqua) {
+          if(ketqua.code===0){
+            console.log(ketqua.data.id);
+            document.getElementById(ketqua.data.id).remove()
+          }
+      })
+    })
+
+$('.btnUpdate').click(e=>{
+  var btn = e.target
+  console.log(e);
+  var id = btn.dataset.id
+  var name= btn.dataset.name
+  var imageUser = btn.dataset.imageuser// chỗ này nếu truyền vào imageUser thì trong targer cũng thành imageuser
+  var message = btn.dataset.message
+  
+  $("#recipient-name").val(name)
+  $("#message-text").html(message)
+  $("#btnChange").attr("data-id", id)
+  $("#btnChange").attr("data-imageuser",imageUser )
+})
+
+
+$("#btnChange").click(e=>{
+  var btn = e.target
+  var id = btn.dataset.id
+  //var imageUser = btn.dataset.imageuser
+  //var name=document.getElementById("recipient-name").value
+  var message=document.getElementById("message-text").value
+  //console.log( message, id);
+  var inputImage = document.getElementById("image_uploads")    
+        // ảnh người dùng update lên
+  var file = inputImage.files;
+  var formData = new FormData();
+  formData.append("message",message)
+  formData.append("id",id)
+  for (var i =0;i<=file.length;i++){
+    formData.append("file",file[i])
+  }
+  for (var value of formData.values()) {
+      console.log("value",value);
+  }
+
+  $('#myModal').hide();
+  $('.modal-backdrop').hide();
+  $.ajax({
+    url: 'http://localhost:3000/updatePost',
+    type: 'POST',
+    dataType: 'JSON',
+    enctype:"multipart/form-data",
+    contentType: false,
+    processData: false,
+    data: formData
+  
+}).done(ketqua=>{
+  if(ketqua.code===0){
+    updatedMessage = ketqua.data.message
+    updatedImage= ketqua.data.image
+    id= ketqua.data.id
+    //console.log(id,updatedMessage, updatedImage);
+    document.getElementsByClassName(id)[1].remove()
+    // vì class có thể lấy nhiều nên sẽ tạo thành mảng và lấy cái đầu tiên vì trong mảng chỉ có 1 phần tử giống id truyền vào
+    var divParentOfcontentUpdate= document.getElementsByClassName(id)[0]
+    //console.log("divParentOfcontentUpdate",divParentOfcontentUpdate);
+      // mess mới update
+ 
+    var divId = document.createElement("div")// div này dùng để remove() nếu cập nhật lại lần nữa
+    setAttributes(divId,{"id":id})
+    var p2 = document.createElement("p")
+    var nodeMess = document.createTextNode(updatedMessage);
+    p2.appendChild(nodeMess)
+    divId.appendChild(p2)
+    divParentOfcontentUpdate.appendChild(divId)
+
+    //hình ảnh sau khi update
+   
+    //console.log("imageRecieveFromServer",updatedImage);
+    var divTagsubParentImage =document.createElement("div")
+    setAttributes(divTagsubParentImage,{"class":"row no-gutters mt-1"})
+    for(var i=0;i<updatedImage.length;i++){
+        var divTagChild= document.createElement("div")
+        setAttributes(divTagChild,{"class":"col-6"})
+        var imageUpload= document.createElement("img")
+        setAttributes(imageUpload,{"src":updatedImage[i],"class":"img-fluid pr-1"})
+        divTagChild.appendChild(imageUpload)
+        divTagsubParentImage.appendChild(divTagChild)
+        divId.appendChild(divTagsubParentImage)
+    
+        }
+            // thời gian cập nhật 
+        var smallTag = document.createElement("small")
+        setAttributes(smallTag,{"class":"text-muted"})
+        var nodeSmallTimeCreate = document.createTextNode("now")
+        smallTag.appendChild(nodeSmallTimeCreate)
+        divId.appendChild(smallTag)
+        var br = document.createElement("br")
+        divId.appendChild(br)
+  }
+    
+
+})
+})
+
+
     $(function () {
         'use strict'
   

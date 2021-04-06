@@ -38,6 +38,7 @@ function checkAuthen(req,res,next){
                 res.redirect('/login')
             }
             else {
+                console.log("đã chạy vào đây decode");
                 console.log(decode);
                 next()
             }

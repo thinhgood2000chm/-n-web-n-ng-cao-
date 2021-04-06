@@ -20,27 +20,34 @@ router.get("/",checkAuthen,(req,res)=>{
         {
             let token = req.cookies['session-token']
             if(token!==undefined){
-            let user = {}
-            async function verify() {
-                const ticket = await client.verifyIdToken({
-                    idToken: token,
-                    audience: CLIENT_ID,  
-                });
-                const payload = ticket.getPayload();
-                    user.email= payload.email;
+                
+                let user = {}
+                async function verify() {
+                    const ticket = await client.verifyIdToken({
+                        idToken: token,
+                        audience: CLIENT_ID,  
+                    });
+                    const payload = ticket.getPayload();
+                        user.email= payload.email;
+                }
+                verify().then(()=>{
+                    console.log(user.email);
+                    accountStudent.findOne({email: user.email},(err, docs)=>{
+                        //console.log(doc);
+                        res.render('index',{doc,docs})
+                    })
+                    
+                })
             }
-            verify().then(()=>{
-                console.log(user.email);
-                accountStudent.findOne({email: user.email},(err, docs)=>{
-                    //console.log(doc);
+            else {
+                let email = req.cookies.account;
+                accountF.findOne({email:email},(err, docs)=>{
                     res.render('index',{doc,docs})
                 })
-                
-            })
         }
-            //res.render("index",{doc, user})
         } 
     })
+    
   
 })
 router.get('/signup',(req,res)=>{
@@ -82,10 +89,19 @@ router.get('/student/profile',checkAuthen,(req,res)=>{
              user.email= payload.email;
        }
        verify().then(()=>{
-           console.log(user.email);
+         
            accountStudent.find({email: user.email},(err, doc)=>{
+            console.log(user.email);
+               post.find({email:user.email},(error,docs)=>{
+                  // console.log("doc,",docs.image.length);
+                   if(error){
+                       console.log(error);
+                   }
+                   else 
+                res.render('profile',{doc,docs})
+               })
                //console.log(doc);
-               res.render('profile',{doc})
+              
            })
           
        })
