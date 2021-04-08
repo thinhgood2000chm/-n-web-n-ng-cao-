@@ -20,9 +20,10 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended:false}))
 app.use(express.static('public'))// load image
 app.use("/public",express.static('public'))// load css and js
-app.use('/',require('./route/page'))
 
+app.use('/',require('./route/page'))
 app.use('/',require('./route/auth'))
+
 
 mongoose.connect("mongodb://localhost:27017/DoAnWebNangCao",
     {useNewUrlParser:true, useUnifiedTopology:true, useCreateIndex: true}

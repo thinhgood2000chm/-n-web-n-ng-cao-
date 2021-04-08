@@ -8,7 +8,8 @@ const {JWT_SECRET}=process.env
 const post = require("../models/post")
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
-const multer = require("multer")
+const multer = require("multer");
+const checkAuthen = require('../middleWare/checkAuthenGG');
 exports.loginGG= (req,res)=>{
     let token = req.body.token
     //console.log(token);
@@ -21,10 +22,11 @@ exports.loginGG= (req,res)=>{
         const userid = payload['sub'];
         
         if(payload.email.includes('@student.tdtu.edu.vn')){// gặp tk đúng yêu cầu thì thêm tk sau đó trả về true
+            var checkArr = []
                accountStudent.find({},(err,doc)=>{
-            
+                console.log("vao ");
                     if(doc.length===0){
-                        //console.log("dã vao day null ");
+                        console.log("dã vao day null ");
                         let newAccountStudent = new accountStudent({
                             iss: payload.iss,
                             hd: payload.hd,
@@ -38,30 +40,51 @@ exports.loginGG= (req,res)=>{
                             //.then(()=>console.log("thêm tài khoản sv thành công ")).catch(e=>console.log(e))
                     }
                     else if(doc.length>0){
+                        
                         for(var i =0;i<doc.length;i++){
+                           console.log(i);
                             if(doc[i].email===payload.email){
                             //console.log("doc",doc);
-                            //console.log("dã vao day");
-                            return true
+                           console.log("da co email");
+                             checkArr.push(1)
+                           // return true
+                           
+                            }else {
+                                checkArr.push(0)
+
+                            }
+                          
                         }
                     }
-                    }
-                        
-                     
-                        else{
-                            //console.log("dã vao day 2");
-                            let newAccountStudent = new accountStudent({
-                                iss: payload.iss,
-                                hd: payload.hd,
-                                fullname: payload.name,
-                                email: payload.email, 
-                                picture: payload.picture,
-                                given_name: payload.given_name,
-                                family_name: payload.family_name,
-                                })
-                                newAccountStudent.save()
-                                .then(()=>console.log("thêm tài khoản sv thành công ")).catch(e=>console.log(e))
+                    console.log("checkArr", checkArr);
+                    var count = 0;
+                    for( var j =0;j<=checkArr.length;j++){
+                       
+                        if(checkArr[j]===1){
+                            count = count +1
                         }
+                        else count =count
+
+                    }
+                    console.log(count);
+                    if(count ===1){
+                        return true
+                    }
+                    else {
+                        console.log("dã vao day2");
+                        let newAccountStudent = new accountStudent({
+                            iss: payload.iss,
+                            hd: payload.hd,
+                            fullname: payload.name,
+                            email: payload.email, 
+                            picture: payload.picture,
+                            given_name: payload.given_name,
+                            family_name: payload.family_name,
+                            })
+                             newAccountStudent.save()
+                            .then(()=>console.log("thêm tài khoản sv thành công ")).catch(e=>console.log(e))
+                    }
+      
                     
                 })
                
@@ -93,6 +116,8 @@ exports.signup=(req,res)=>{
        
             let newAccount = new account({
                 faculty : faculty,
+                fullname:email,
+                picture:'https://www.google.com/search?q=icon+tdtu&sxsrf=ALeKk026AlBF57vUIRjGBzMDhIFHbiMy3A:1617895078565&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiY9cPr-O7vAhUCHXAKHVvMABIQ_AUoAXoECAEQAw&biw=1366&bih=657#imgrc=IxP7nK1vsf3FHM',
                 email: email,
                 password: hashedPass
             })

@@ -1,0 +1,15 @@
+<div class="form-group p-5 mr-2 sw-50" id="dialog">
+        <div class="alert alert-danger alert-dismissible fade show">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p class="text-center">Đổi mật khẩu thành công</p>
+        </div>
+    </div>
+    
+   
+    <script>
+        $().ready(function(){
+
+        $('div.alert').delay(1500);
+        $('div.alert').hide(1000);
+        });
+    </script>
