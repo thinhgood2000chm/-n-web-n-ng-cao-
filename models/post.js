@@ -10,6 +10,7 @@ const postSchema = new Schema({
     comment: [{
         emailUComment: String,
         imageUserComment: String,
+        nameUserComment: String,
         content: String,
     }]
 },{timestamps:true})

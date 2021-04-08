@@ -353,6 +353,45 @@ $("#btnChange").click(e=>{
 })
 })
 
+$(".classComment").keyup(event=>{
+  //console.log(event);
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    var comment 
+   var contentComment= document.getElementsByClassName("classComment")
+  for ( var i =0;i <contentComment.length;i++){
+    if(contentComment[i].value!==""){
+     comment=contentComment[i].value
+     var id = document.getElementById("idNews").value
+     var imageUserComment = document.getElementById("hiddenPicture").value
+     var emailUserComment = document.getElementById("hiddenEmailOfPost").value
+     var nameUserComment = document.getElementById("hiddenFullname").value
+     console.log(comment,imageUserComment,nameUserComment,emailUserComment);
+     var data={
+      id:id,
+      imageUserComment:imageUserComment,
+      emailUserComment:emailUserComment,
+      nameUserComment:nameUserComment,
+      comment:comment
+     }
+     $.ajax({
+      url: 'http://localhost:3000/commentPost',
+      type: 'POST',
+      dataType: 'JSON',
+      data:data
+    
+      }).done(ketqua=>{
+        if(ketqua.code===0){
+          console.log("code");
+        }
+      })
+
+  }
+
+ 
+   } 
+  }
+})
 
     $(function () {
         'use strict'

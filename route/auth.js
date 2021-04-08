@@ -11,4 +11,5 @@ router.post('/insertPost',upload.array('file',12), authController.insertPost)// 
 router.post('/deletePost', authController.deletePost)
 router.post('/updatePost',upload.array(('file'),12),authController.updatePost)
 router.post("/changePassword", authController.changePassword)
+router.post("/commentPost",authController.commentPost)
 module.exports=router

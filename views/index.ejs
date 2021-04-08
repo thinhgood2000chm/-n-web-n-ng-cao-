@@ -70,6 +70,7 @@
                       <!------------------------------------------->
                       <input type="hidden" value="<%=docs.email%>" id="hiddenEmailOfPost">
                       <input type="hidden" value="<%=docs.picture%>" id="hiddenPicture">
+                      <input type="hidden" value="<%=docs.fullname%>" id="hiddenFullname">
                       <!---=---------------------------------------------->
                       <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Recipient:</label>
@@ -217,6 +218,7 @@
                           <div class="card">
                             <div class="card-body h-100">
                                 <div class="media">
+                                  <input type = "hidden" id="idNews" value="<%=doc[i]._id%>">
                                     <!--<img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">-->
                                     <img src="<%=doc[i].imageUser%>" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">
                                     <div class="media-body">
@@ -264,17 +266,18 @@
                         
                                             <!-- Avatar -->
                                             <div class="avatar avatar-sm">
-                                              <img src="https://cdn1.iconfinder.com/data/icons/animals-95/300/cat-circle-animal-pet-wild-domestic-256.png" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
+                                            
+                                              <img src="<%=docs.picture%>" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
                                             </div>
                         
                                           </div>
                                           <div class="col ml-n2">
                         
                                             <!-- Input -->
-                                            <form class="mt-1">
+                                            <div class="mt-1" id="parentComment">
                                               <label class="sr-only">Leave a comment...</label>
-                                              <textarea id="comment"class="form-control form-control-flush" data-toggle="autosize" rows="1" placeholder="Leave a comment" style="overflow: hidden; overflow-wrap: break-word; height: 50px;"></textarea>
-                                            </form>
+                                              <textarea id="comment"class="form-control form-control-flush classComment" data-toggle="autosize" rows="1" placeholder="Leave a comment" ></textarea>
+                                            </div>
                                             
                                         
                                           </div>

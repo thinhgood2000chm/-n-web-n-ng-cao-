@@ -381,3 +381,20 @@ exports.updatePost=(req,res)=>{
         }
     })
 }
+
+// comment 
+exports.commentPost=(req,res)=>{
+    var{id,imageUserComment,emailUserComment,nameUserComment,comment}= req.body
+    //console.log(imageUserComment,emailUserComment,nameUserComment,comment);
+    dataPush={
+        emailUComment: emailUserComment,
+        imageUserComment: imageUserComment,
+        nameUserComment: nameUserComment,
+        content: comment,
+    }
+    post.findByIdAndUpdate(id,{$push:{comment:dataPush}})
+    .then(()=>{
+        console.log("comment thành công");
+    })
+    .catch(e=>console.log(e))
+}
