@@ -397,4 +397,16 @@ exports.commentPost=(req,res)=>{
         console.log("comment thành công");
     })
     .catch(e=>console.log(e))
+
+    res.setHeader("Content-Type","application/json")
+    res.send({
+        code:0,
+        data:{
+            emailUComment: emailUserComment,
+            imageUserComment: imageUserComment,
+            nameUserComment: nameUserComment,
+            content: comment,
+            id:id
+        }
+    })
 }

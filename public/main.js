@@ -359,14 +359,18 @@ $(".classComment").keyup(event=>{
     event.preventDefault();
     var comment 
    var contentComment= document.getElementsByClassName("classComment")
+   var btn = event.target
+   var id = btn.dataset.id
+   console.log(id);
   for ( var i =0;i <contentComment.length;i++){
     if(contentComment[i].value!==""){
      comment=contentComment[i].value
-     var id = document.getElementById("idNews").value
+  
      var imageUserComment = document.getElementById("hiddenPicture").value
      var emailUserComment = document.getElementById("hiddenEmailOfPost").value
      var nameUserComment = document.getElementById("hiddenFullname").value
-     console.log(comment,imageUserComment,nameUserComment,emailUserComment);
+     //console.log(comment,imageUserComment,nameUserComment,emailUserComment);
+     
      var data={
       id:id,
       imageUserComment:imageUserComment,
@@ -374,6 +378,7 @@ $(".classComment").keyup(event=>{
       nameUserComment:nameUserComment,
       comment:comment
      }
+    // comment=contentComment[i].textContent=""
      $.ajax({
       url: 'http://localhost:3000/commentPost',
       type: 'POST',
@@ -382,7 +387,48 @@ $(".classComment").keyup(event=>{
     
       }).done(ketqua=>{
         if(ketqua.code===0){
-          console.log("code");
+          var imageUserCommentFS= ketqua.data.imageUserComment
+          var nameUserCommentFS= ketqua.data.nameUserComment
+          var content= ketqua.data.content
+          var id = ketqua.data.id
+          console.log(imageUserCommentFS,nameUserCommentFS,content);
+          
+          // ảnh đại diện của người comment
+         
+          var parentDiv = document.getElementById(id)
+          var divComment= document.createElement("div")
+          setAttributes(divComment,{"class":"media mt3"})
+          var aTag = document.createElement("a")
+          setAttributes(aTag,{"class":"pr-2"})
+          var pictureComment=document.createElement("img")
+          setAttributes(pictureComment,{"src":imageUserCommentFS,"width":"36", "height":"36", "class":"rounded-circle mr-2"})
+          aTag.appendChild(pictureComment)
+          divComment.appendChild(aTag)
+          parentDiv.appendChild(document.createElement("br"))
+         
+
+          // nội dung tin comment
+          var divOfComment = document.createElement("div")
+          setAttributes(divOfComment,{"class":"media-body"})
+          var pTagOfcomment = document.createElement("p")
+          setAttributes(pTagOfcomment,{"class":"text-muted"})
+          var nodeContentComment = document.createTextNode(content)
+         // console.log("nodeContentComment",nodeContentComment);
+          var strongOfP = document.createElement("strong")
+          var nodeStrongOfP = document.createTextNode(nameUserCommentFS)
+          strongOfP.appendChild(nodeStrongOfP)
+          pTagOfcomment.appendChild(strongOfP)
+          pTagOfcomment.appendChild(document.createTextNode(": "))
+          pTagOfcomment.appendChild(nodeContentComment)
+        
+          // đây là div của phần name và content
+          divOfComment.appendChild(pTagOfcomment)
+          // đây là div tổng của toàn bộ phần comment 
+          divComment.appendChild(divOfComment)
+
+
+          parentDiv.appendChild(divComment)
+
         }
       })
 
