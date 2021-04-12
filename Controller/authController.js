@@ -106,7 +106,8 @@ exports.loginGG= (req,res)=>{
 
 exports.signup=(req,res)=>{
     var{faculty,email, password,passwordComfirm}= req.body;
-
+ 
+    console.log(faculty);
     bcrypt.hash(password, 10, (err, hashedPass)=>{
         if(err){
             res.json({
@@ -114,7 +115,7 @@ exports.signup=(req,res)=>{
             })
         }
        
-            let newAccount = new account({
+            let newAccount = new accountF({
                 faculty : faculty,
                 fullname:email,
                 picture:'https://www.google.com/search?q=icon+tdtu&sxsrf=ALeKk026AlBF57vUIRjGBzMDhIFHbiMy3A:1617895078565&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiY9cPr-O7vAhUCHXAKHVvMABIQ_AUoAXoECAEQAw&biw=1366&bih=657#imgrc=IxP7nK1vsf3FHM',
@@ -410,3 +411,68 @@ exports.commentPost=(req,res)=>{
         }
     })
 }
+
+/*exports.updateComment=(req,res)=>{
+    var {  idComment, userCurrentInComment,content}= req.body
+    console.log(idComment, userCurrentInComment,content);
+}*/
+exports.deleteComment= (req,res)=>{
+    var{id,idComment,userCurrentInComment }= req.body
+    console.log(id,idComment,userCurrentInComment);
+    let token = req.cookies['session-token']
+    // delete của sinh viên
+    if(token!==undefined){
+        
+        let user = {}
+        async function verify() {
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: CLIENT_ID,  
+            });
+            const payload = ticket.getPayload();
+                user.email= payload.email;
+        }
+        verify().then(()=>{
+          
+            if(userCurrentInComment===user.email){
+                post.findByIdAndUpdate(id,{$pull:{comment:{_id:idComment}}})
+                .then(()=>{
+                    console.log("xóa comment thành công");
+                    res.send({
+                        code:0, message: "xóa comment thành công",  data:{id:idComment}
+                    })
+                })
+                .catch(e=>console.log(e))
+            }
+            else{
+                res.send({code:1,
+                    message:"bạn không thể xóa bình luận của người khác",
+                })
+          
+            }
+        })
+    }
+    else{// delete của giáo viên và khoa 
+        if(userCurrentInComment===req.cookies.account){
+            post.findByIdAndUpdate(id,{$pull:{comment:{_id:idComment}}})
+            .then(()=>{
+                console.log("xóa comment thành công");
+                res.send({
+                    code: 0,
+                     message: "xóa comment thành công",
+                     data:{id:idComment}
+                    })
+            })
+            .catch(e=>console.log(e))
+        }
+        else {
+            // vì cái này của giáo viên nên chỉ cần lấy data của gióa viên chứ ko cần lầy doc của sv
+            res.send({code:1,
+                message:"bạn không thể xóa bình luận của người khác",
+            })
+    
+        }
+    }
+  
+}
+

@@ -30,7 +30,7 @@
    <%-include("header")%>
       <!--navbar-->
 
-    
+   
       <!--main-->
       <main role="main" class="container">
         <!--Đăng tin-->
@@ -214,7 +214,7 @@
                         <!--kết thúc-->
 
 
-                        <%for(var i = doc.length-1; i>=0; i--){%>
+                        <%for(var i = doc.length-1; i>=0; i--){%><!--post laf i-->
                           <div class="card" >
                             <div class="card-body h-100">
                                 <div class="media">
@@ -242,18 +242,20 @@
                                           <a href="#comment" class="btn btn-sm btn-danger mt-1"><i class="fa fa-comments-o"></i> comment</a>
                                         <!--dòng bình luận-->
                                         <%doc[i].comment.forEach(c=>{%>
-                                        <div class="media mt-3">
+                                        <div class="media mt-3" id="<%=c._id%>">
                                         
                                             <a class="pr-2" href="#">
                                             <img src="<%=c.imageUserComment%>" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
                                             </a>
                                            
                           
-                                            <div class="media-body">
-                                                <p class="text-muted">
+                                            <div class="media-body UpdateDelete" ><!--id ở đây dùng để xóa comment ko cần load lại trang -->
+                                                <p class="text-muted textComment" >
                                                     <strong><%=c.nameUserComment%></strong>: <%=c.content%>
+                                                    <input type="hidden" value="<%=c.emailUComment%>" class="emailUCommentId">
                                                 </p>
-                                                
+                                                <a href="#comment" data-index="<%=i%>" data-id="<%=c._id%>"data-comment="<%=c.content%>" data-userCurrent="<%=c.emailUComment%>" class="text-comment updateComment">chỉnh sửa</a>
+                                                <a  data-id="<%=doc[i]._id%>"data-idComment="<%=c._id%>" class="text-comment deleteComment" data-userCurrent="<%=c.emailUComment%>">xóa</a>
                                             </div>
                                         </div>
                                     
@@ -555,7 +557,7 @@
         </div>
   
 
-
+    
       
   </body>
   

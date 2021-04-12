@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CatSocial</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://icons.getbootstrap.com/icons/image/">
+    <link href="/public/stylesheets.css" rel="stylesheet">
+    <script src="/public/main.js"></script>
+</head>
+<body>
+    <main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-primary rounded box-shadow">
+           
+            <div class="lh-100">
+              <h2 class="mb-0 text-white lh-100">Notfications</h2>
+              <h5>Thông báo của bạn đăng sẽ hiện ở đây</h5>
+              <!-- Nút tạo bài tập -->
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Tạo
+              </button>
+    
+              <!-- The Modal -->
+              <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <div class="container">
+                        <div class="container-fluid p-3 ">
+                            <div class="modal-header">
+                                <h1>Created Notfications</h1>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                           
+                            <div class="modal-body">
+                                    <form>
+                                        <!--phần chủ đề-->
+                                        
+                                            <div class="form-floating">
+                                            <div class="department-select" >
+                                                <h5>Vui lòng chọn Phòng/ Khoa</h5>
+                                                <select class="form-select"name ="faculty">
+                                                    <option>..Choose</option>
+                                                    <option><%=locals.info.faculty%></option>
+                                                  
+                                                </select>
+                                            </div>
+                                            </div>
+                                     
+                                        <!--nội dung thông báo-->
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label">Message:</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                        </div>
+                                        <!--input file-->
+                                        <div class="form-group">
+                                            <label for="file-input" class="col-form-label">Input your file or images:</label>
+                                            <span type="button" class="fa fa-image icon" id="my-button" value="Upload image"></span>
+                                            <input type="file" class="d-none" name="my_file" id="my-file" accept=".jpg, .jpeg, .png" >
+                                        
+                                            <span class="fa fa-file icon " type="button" id="my-button2" value="Upload file"></span>
+                                            <input type="file" class="d-none" name="my_file" id="my-file2"  >
+                                        </div>
+                                    </form>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-danger">Posted</button>
+                    </div>
+          
+              
+              </div>
+            </div>
+          </div>
+    </main>
+    
+</body>
+<script>
+    $('#my-button').click(function(){
+        $('#my-file').click();
+    });
+    $('#my-button2').click(function(){
+        $('#my-file2').click();
+    });
+</script>
+</html>

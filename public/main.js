@@ -40,7 +40,7 @@ $(document).ready(function(){
           el.setAttribute(key, attrs[key]);
         }
       }
-
+// thêm bài viết mới
     $("#btnPosted").click((e)=>{
         
         e.preventDefault();
@@ -227,7 +227,7 @@ $(document).ready(function(){
         });
         
     });
-
+    // xóa bài viết
     $(".btnDelete").click(e=>{
       e.preventDefault();
       $("#confirmDelete").modal("show")
@@ -272,7 +272,7 @@ $('.btnUpdate').click(e=>{
   $("#btnChange").attr("data-imageuser",imageUser )
 })
 
-
+// thay đổi bài biết
 $("#btnChange").click(e=>{
   var btn = e.target
   var id = btn.dataset.id
@@ -311,6 +311,7 @@ $("#btnChange").click(e=>{
     id= ketqua.data.id
     //console.log(id,updatedMessage, updatedImage);
     document.getElementsByClassName(id)[1].remove()
+
     // vì class có thể lấy nhiều nên sẽ tạo thành mảng và lấy cái đầu tiên vì trong mảng chỉ có 1 phần tử giống id truyền vào
     var divParentOfcontentUpdate= document.getElementsByClassName(id)[0]
     //console.log("divParentOfcontentUpdate",divParentOfcontentUpdate);
@@ -353,6 +354,7 @@ $("#btnChange").click(e=>{
 })
 })
 
+// comment bài viêt
 $(".classComment").keyup(event=>{
   //console.log(event);
   if (event.keyCode === 13) {
@@ -370,7 +372,7 @@ $(".classComment").keyup(event=>{
      var emailUserComment = document.getElementById("hiddenEmailOfPost").value
      var nameUserComment = document.getElementById("hiddenFullname").value
      //console.log(comment,imageUserComment,nameUserComment,emailUserComment);
-     
+    
      var data={
       id:id,
       imageUserComment:imageUserComment,
@@ -378,7 +380,7 @@ $(".classComment").keyup(event=>{
       nameUserComment:nameUserComment,
       comment:comment
      }
-    // comment=contentComment[i].textContent=""
+     contentComment[i].value=""
      $.ajax({
       url: 'http://localhost:3000/commentPost',
       type: 'POST',
@@ -387,6 +389,7 @@ $(".classComment").keyup(event=>{
     
       }).done(ketqua=>{
         if(ketqua.code===0){
+          var emailUCommentFS = ketqua.data.emailUComment
           var imageUserCommentFS= ketqua.data.imageUserComment
           var nameUserCommentFS= ketqua.data.nameUserComment
           var content= ketqua.data.content
@@ -409,17 +412,20 @@ $(".classComment").keyup(event=>{
 
           // nội dung tin comment
           var divOfComment = document.createElement("div")
-          setAttributes(divOfComment,{"class":"media-body"})
+          setAttributes(divOfComment,{"class":"media-body UpdateDelete"})
           var pTagOfcomment = document.createElement("p")
           setAttributes(pTagOfcomment,{"class":"text-muted"})
           var nodeContentComment = document.createTextNode(content)
          // console.log("nodeContentComment",nodeContentComment);
+         var emailUCommentToCheck = document.createElement("input")
+         setAttributes(emailUCommentToCheck,{"type":"hidden", "value":emailUCommentFS,"class":"emailUCommentId"})
           var strongOfP = document.createElement("strong")
           var nodeStrongOfP = document.createTextNode(nameUserCommentFS)
           strongOfP.appendChild(nodeStrongOfP)
           pTagOfcomment.appendChild(strongOfP)
           pTagOfcomment.appendChild(document.createTextNode(": "))
           pTagOfcomment.appendChild(nodeContentComment)
+          pTagOfcomment.appendChild(emailUCommentToCheck)
         
           // đây là div của phần name và content
           divOfComment.appendChild(pTagOfcomment)
@@ -429,15 +435,110 @@ $(".classComment").keyup(event=>{
 
           parentDiv.appendChild(divComment)
 
+   
+          /*var UpdateDelete = document.getElementsByClassName("UpdateDelete")
+    var emailUCommentId= document.getElementsByClassName("emailUCommentId")
+   //console.log(UpdateDelete.length,emailUCommentId.length);
+    for(var i =UpdateDelete.length-1;i>=0;i--){
+ 
+     
+      var emailCurrentUser = document.getElementById("hiddenEmailOfPost").value
+     
+        if(emailUCommentId[i].value===emailCurrentUser){
+          console.log(emailUCommentId,emailCurrentUser);
+          console.log("da vao day");
+        var UpdateLink = document.createElement("a")
+        setAttributes(UpdateLink,{"class":"text-comment"})
+        var nodeUpdateLink = document.createTextNode("chỉnh sửa")
+        UpdateLink.appendChild(nodeUpdateLink)
+        var deleteLink = document.createElement("a")
+        setAttributes(deleteLink,{"class":"text-comment"})
+        var nodeDeleteLink = document.createTextNode("xóa")
+        deleteLink.appendChild(nodeDeleteLink)
+  
+        //
+        
+       
+      
+      UpdateDelete[i].appendChild(UpdateLink)
+      UpdateDelete[i].appendChild(deleteLink)
+    
+      }
+      break
+      
+    }*/
         }
+        
       })
 
-  }
+      }
+    }
 
- 
-   } 
+   
   }
 })
+// xóa comment bài viết
+  $(".deleteComment").click(e=>{
+    var btn = e.target
+    var id= btn.dataset.id
+    var idComment = btn.dataset.idcomment
+    var userCurrentInComment= btn.dataset.usercurrent
+    console.log(id, idComment, userCurrentInComment);
+    $.ajax({
+      url:"http://localhost:3000/deleteComment",
+      type:"POST",
+      dataType:"JSON",
+      data:{
+        id:id,
+        idComment:idComment,
+        userCurrentInComment: userCurrentInComment
+      }
+    })
+    .done(ketqua=>{
+      //console.log(ketqua);
+
+      if(ketqua.code===0){
+        console.log();
+        document.getElementById(ketqua.data.id).remove()
+      }
+      else if(ketqua.code===1){
+        alert(ketqua.message)
+      }
+    })
+  })
+ /* $(".updateComment").click(e=>{
+    var btn = e.target
+    // console.log(e);
+    var idComment = btn.dataset.id
+    var indexInDB = btn.dataset.index
+    var userCurrentInComment = btn.dataset.usercurrent
+    var content= btn.dataset.comment
+    console.log(indexInDB);
+    var classComment= document.getElementsByClassName("classComment")
+    // vì khi in từ trong db ra in ngược nên class của tin đầu tiên suất hiện sẽ nằm ở vị trí cuối cùng trong db
+    // trong page thì bắt đầu từ 0 nên phải trừ đi 1 nữa mới đủ 
+    indexInpage= classComment.length-1-indexInDB
+    
+    console.log(classComment.length);
+    classComment[indexInpage].value=content*/
+    // lam den găn data vao o bình luận
+
+   /* console.log(idComment,userCurrentInComment,content);
+    data={
+      idComment:idComment,
+      userCurrentInComment:userCurrentInComment,
+      content:content
+    }
+    $.ajax({
+      url: 'http://localhost:3000/updateComment',
+      type: 'POST',
+      dataType: 'JSON',
+      data:data
+    
+      }).done(ketqua=>{
+    })*/
+    
+ // })
 
     $(function () {
         'use strict'
@@ -451,5 +552,31 @@ $(".classComment").keyup(event=>{
         $('#my-file').click();
     });*/
 
+    // thiết lập hiển thị xóa sửa trong comment
+    /*var UpdateDelete = document.getElementsByClassName("UpdateDelete")
+    var emailUCommentId= document.getElementsByClassName("emailUCommentId")
+   //console.log(UpdateDelete.length,emailUCommentId.length);
+    for(var i =0;i<UpdateDelete.length;i++){
+ 
+     
+      var emailCurrentUser = document.getElementById("hiddenEmailOfPost").value
+     
+        if(emailUCommentId[i].value===emailCurrentUser){
+          console.log(emailUCommentId,emailCurrentUser);
+          console.log("da vao day");
+        var UpdateLink = document.createElement("a")
+        setAttributes(UpdateLink,{"class":"text-comment updateComment", "href":"#comment"})
+        var nodeUpdateLink = document.createTextNode("chỉnh sửa")
+        UpdateLink.appendChild(nodeUpdateLink)
+        var deleteLink = document.createElement("a")
+        setAttributes(deleteLink,{"class":"text-comment"})
+        var nodeDeleteLink = document.createTextNode("xóa")
+        deleteLink.appendChild(nodeDeleteLink)
+      UpdateDelete[i].appendChild(UpdateLink)
+      UpdateDelete[i].appendChild(deleteLink)
+      }
+
+      
+    }*/
 
 })

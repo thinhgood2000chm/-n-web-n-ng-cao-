@@ -108,7 +108,7 @@ router.get('/student/profile',checkAuthen,(req,res)=>{
             
 })
 
-router.get('/user/notification',(req,res)=>{
+router.get('/user/notification',checkAuthen,(req,res)=>{
     res.render('department-notfication')
 })
 router.get('/edit-account',(req,res)=>{
@@ -145,7 +145,24 @@ router.get('/edit-account',(req,res)=>{
   
 })
 
+router.get('/createNotification',checkAuthen,(req,res)=>{
+    var token =  req.cookies.jwt;
+    if(token){
+        var email = req.cookies.account
+        console.log("email",email);
+        accountF.findOne({email: email},(err, info)=>{
+            console.log(info.faculty);
+            res.render('create-notfication',{info})
+        })
+       /* .then(info=>{
+            
+        })
+        .catch(e=>console.log(e))*/
 
+    }
+    else res.redirect('/')
+    
+})
 
 /*
 function checkAuthen(req,res,next){
