@@ -41,45 +41,58 @@
                                 <h1>Created Notfications</h1>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
-                           
+                            <form action="/createNotify" method="post"  enctype="multipart/form-data">
                             <div class="modal-body">
-                                    <form>
+                                   
                                         <!--phần chủ đề-->
-                                        
+                                            <input type="hidden" name="email" value="<%=info.email%>">
                                             <div class="form-floating">
                                             <div class="department-select" >
                                                 <h5>Vui lòng chọn Phòng/ Khoa</h5>
                                                 <select class="form-select"name ="faculty">
                                                     <option>..Choose</option>
-                                                    <option><%=locals.info.faculty%></option>
+                                                    <%for(var i=0; i<info.faculty.length; i++){%>
                                                   
+                                                    <option><%=locals.info.faculty[i]%></option>
+                                                  <%}%>
                                                 </select>
                                             </div>
                                             </div>
-                                     
+                                            <!--title thông báo-->
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">title:</label>
+                                                <textarea class="form-control" id="title-text" name="titleText"></textarea>
+                                            </div>
                                         <!--nội dung thông báo-->
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Message:</label>
-                                            <textarea class="form-control" id="message-text"></textarea>
+                                            <textarea class="form-control" id="message-text"name="messageText"></textarea>
                                         </div>
                                         <!--input file-->
                                         <div class="form-group">
-                                            <label for="file-input" class="col-form-label">Input your file or images:</label>
+                                            <i class="bi bi-file-earmark-richtext"></i>
+                                            <label for="image_uploads">Choose images to upload (PNG, JPG, JPEG)</label>
+                                            <input class="fa fa-image icon" type="file"  name="imageUploads" accept=".jpg, .jpeg, .png" multiple aria-hidden="true">
+
+                                            <!--<label for="file-input" class="col-form-label">Input your file or images:</label>
                                             <span type="button" class="fa fa-image icon" id="my-button" value="Upload image"></span>
-                                            <input type="file" class="d-none" name="my_file" id="my-file" accept=".jpg, .jpeg, .png" >
+                                            <input type="file" class="d-none" name="myFile" id="my-file" accept=".jpg, .jpeg, .png" >-->
                                         
-                                            <span class="fa fa-file icon " type="button" id="my-button2" value="Upload file"></span>
-                                            <input type="file" class="d-none" name="my_file" id="my-file2"  >
+                                            <!--<span class="fa fa-file icon " type="button" id="my-button2" value="Upload file"></span>
+                                            <input type="file" class="d-none" name="my_file" id="my-file2"  >-->
                                         </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Posted</button>
+                                          </div>
+                                
                                     </form>
+                                 
                             </div>
                         </div> 
                     </div>
                     <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-danger">Posted</button>
-                    </div>
-          
+                 
               
               </div>
             </div>
@@ -87,12 +100,5 @@
     </main>
     
 </body>
-<script>
-    $('#my-button').click(function(){
-        $('#my-file').click();
-    });
-    $('#my-button2').click(function(){
-        $('#my-file2').click();
-    });
-</script>
+
 </html>

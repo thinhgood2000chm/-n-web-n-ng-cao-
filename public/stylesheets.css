@@ -372,3 +372,50 @@ overflow: hidden; overflow-wrap: break-word; height: 50px;
 #comment{
 overflow: hidden; overflow-wrap: break-word; height: 50px;
 }
+
+
+/*Style select checkbox của sign in-*/
+.multiselect {
+    width: 100%;
+}
+
+.selectBox {
+    position: relative;
+}
+
+.selectBox select {
+    width: 100%;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    size: 3;
+}
+
+#checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    overflow-y: scroll;
+    max-height: 200px;
+}
+
+#checkboxes label {
+    display: block;
+    margin: 10px;
+}
+
+#checkboxes label:hover {
+    background-color: #e0e0e0;
+}
+
+#styleFont{
+ vertical-align: inherit
+}

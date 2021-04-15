@@ -34,6 +34,38 @@ console.log('User signed out.');
 
 
 $(document).ready(function(){
+  // js chạy select muti trong sign up
+  $('#showCheckboxes').click(()=>{
+    var expanded = false;
+
+    
+        var checkboxes = document.getElementById("checkboxes");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+        }
+    
+  })
+
+
+  /* lấy data checkbox trong signup*/
+  $("#btnSignUp").click(()=>{
+ 
+    $('input:checkbox.faculty').each(function () {
+      var sThisVal = (this.checked ? $(this).val() : "");
+      //console.log(sThisVal);
+      listFaculty=[]
+      if(sThisVal!==''){
+        console.log(sThisVal);
+        listFaculty.push(sThisVal)
+      }
+ });
+  
+  })
+  
     // hàm dùng đẻ tạo nhiều attribute trong 1 lần 
     function setAttributes(el, attrs) {
         for(var key in attrs) {
@@ -547,7 +579,29 @@ $(".classComment").keyup(event=>{
           $('.offcanvas-collapse').toggleClass('open')
         })
       })
-  
+
+
+    $('#my-button').click(function(){
+        $('#my-file').click();
+    });
+    $('#my-button2').click(function(){
+        $('#my-file2').click();
+    });
+
+
+    $('#openNav').click(()=>{
+      document.getElementById("mySidenav").style.width = "300px";
+      document.getElementById("main").style.marginLeft = "300px";
+    })
+
+    
+    
+
+      $('#closeNav').click(()=>{
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    })
+
     /*$('#my-button').click(function(){
         $('#my-file').click();
     });*/
@@ -578,5 +632,5 @@ $(".classComment").keyup(event=>{
 
       
     }*/
-
+  
 })

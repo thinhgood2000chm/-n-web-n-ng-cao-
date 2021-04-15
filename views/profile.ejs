@@ -64,13 +64,12 @@
                           <!-- Body -->
                           <div class="header-body mt-n5 mt-md-n6">
                             <div class="row align-items-end">
-                              <%doc.forEach(d=>{%>
-                                
+                          
                               <div class="col-auto">
                 
                                 <!-- Avatar -->
                                 <div class="avatar avatar-xxl header-avatar-top">
-                                  <img src="<%=d.picture%>" width="256"  hight="256" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+                                  <img src="<%=doc.picture%>" width="256"  hight="256" alt="..." class="avatar-img rounded-circle border border-4 border-body">
                                 </div>
                 
                               </div>
@@ -81,12 +80,12 @@
                 
                                 <!-- Title -->
                                 <h1 class="header-title">
-                                  <%=d.fullname%>
+                                  <%=doc.fullname%>
                                 </h1>
                                 <h6 class="header-pretitle">
-                                  Class: <%=d.className%>
+                                  Class: <%=doc.faculty%>
                                 </h6>
-                              <%})%>
+                            
                               </div>
                               <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
                 

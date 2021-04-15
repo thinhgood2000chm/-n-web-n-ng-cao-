@@ -32,39 +32,76 @@
             <div class="form-floating">
                 <input type="password" placeholder="Enter Password confirm" id="passwordComfirm" name="passwordComfirm" required>
             </div>
-            <div class="checkbox mb-3"> 
-
-            </div>
             <div class="form-floating">
-                <div class="department-select" >
-                        <h5>Vui lòng chọn Phòng/ Khoa</h5>
-                        <select class="form-select" name ="faculty" multiple>
-                            <option>..Choose</option>
-                            <option value ="Phòng Đại học">Phòng Công tác học sinh sinh viên (CTHSSV)</option>
-                            <option value ="Phòng Đại học"> Phòng Đại học</option>
-                            <option  value ="Phòng Sau đại học">Phòng Sau đại học</option>
-                            <option  value ="Phòng điện toán và máy tính">Phòng điện toán và máy tính</option>
-                            <option  value ="Phòng khảo thí và kiểm định chất lượng">Phòng khảo thí và kiểm định chất lượng</option>
-                            <option  value ="Phòng tài chính">Phòng tài chính</option>
-                            <option  value ="TDT Creative Language Center">TDT Creative Language Center</option>
-                            <option  value ="Trung tâm tin học">Trung tâm tin học</option>
-                            <option  value ="Trung tâm đào tạo phát triển xã hội (SDTC)">Trung tâm đào tạo phát triển xã hội (SDTC)</option>
-                            <option value ="Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ (ATEM)">Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ (ATEM)</option>
-                            <option value ="Trung tâm hợp tác doanh nghiệp và cựu sinh viên">Trung tâm hợp tác doanh nghiệp và cựu sinh viên</option>
-                            <option value ="Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa<">Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa</option>
-                            <option value ="Viện chính sách kinh tế và kinh doanh">Viện chính sách kinh tế và kinh doanh</option>
-                            <!--<option value ="Phòng Đại học">Khoa Luật</option>
-                            <option value ="Phòng Đại học">Khoa Mỹ thuật công nghiệp</option>
-                            <option value ="Phòng Đại học">Khoa Điện-Điện tử</option>
-                            <option value ="Phòng Đại học">Khoa Công nghệ thông tin</option>
-                            <option value ="Phòng Đại học">Khoa Quản trị kinh doanh</option>
-                            <option value ="Phòng Đại học">Khoa Môi trường và bảo hộ lao động</option>
-                            <option value ="Phòng Đại học">Khoa Lao động công đoàn</option>
-                            <option value ="Phòng Đại học">Khoa giáo dục quốc tế</option>
-                            <option value ="Phòng Đại học">Khoa Tài chính ngân hàng</option>-->
-                        </select >
+                <div class="multiselect">
+                    <h5>Vui lòng chọn Phòng/Khoa</h5>
+                    <div class="selectBox" id="showCheckboxes">
+                      <select id="selectCheckBox">
+                        <option>Select an option</option>
+                      </select>
+                    <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes">
+                      <label for="1">
+                        <input type="checkbox" name="faculty" class ="faculty" id="CTHSSV" value="Phòng Công tác học sinh sinh viên (CTHSSV)"/>Phòng Công tác học sinh sinh viên (CTHSSV)
+                      </label>
+                      <label for="2">
+                        <input type="checkbox" name="faculty" class ="faculty" id="PDH" value="Phòng Đại học"/>Phòng Đại học</label>
+                      <label for="3">
+                        <input type="checkbox" name="faculty" class ="faculty" id="PSDH" value="Phòng Sau đại học"/>Phòng Sau đại học
+                      </label>
+                      <label for="4">
+                        <input type="checkbox" name="faculty" class ="faculty" id="DTMT" value="Phòng điện toán và máy tính"/>Phòng điện toán và máy tính
+                      </label>
+                      <label for="5">
+                          <input type="checkbox" name="faculty" class ="faculty" id="KTKD" value="Phòng khảo thí và kiểm định chất lượng"/>Phòng khảo thí và kiểm định chất lượng</label>
+                      <label for="6">
+                          <input type="checkbox" name="faculty" class ="faculty" id="PTC" value="Phòng tài chính" />Phòng tài chính</label>
+                      <label for="7">
+                          <input type="checkbox" name="faculty" class ="faculty" id="CLC" value="TDT Creative Language Center" />TDT Creative Language Center</label>
+                      <label for="8">
+                          <input type="checkbox" name="faculty" class ="faculty" id="TTTH" value="Trung tâm tin học" />Trung tâm tin học</label>
+                      <label for="9">
+                          <input type="checkbox" name="faculty" class ="faculty" id="SDTC" value="Trung tâm đào tạo phát triển xã hội (SDTC)"/>Trung tâm đào tạo phát triển xã hội (SDTC)</label>
+                      <label for="10">
+                          <input type="checkbox" name="faculty" class ="faculty" id="ATEM" value="Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ (ATEM)"/>Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ (ATEM)
+                      </label>
+                      <label for="11">
+                          <input type="checkbox" name="faculty" class ="faculty" id="TTHTDN" value="Trung tâm hợp tác doanh nghiệp và cựu sinh viên" />Trung tâm hợp tác doanh nghiệp và cựu sinh viên
+                      </label>
+                      <label for="12">
+                        <input type="checkbox" name="faculty"  class ="faculty"id="TTNGTH" value="Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa"/>Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa
+                      </label>
+                      <label for="13">
+                        <input type="checkbox" name="faculty" class ="faculty" id="VCSKT" value="Viện chính sách kinh tế và kinh doanh"/>Viện chính sách kinh tế và kinh doanh
+                      </label>
+                      <label for="14">
+                        <input type="checkbox" name="faculty" class ="faculty" id="CNTT" value="Khoa Công nghệ thông tin" />Khoa Công nghệ thông tin</label>
+                      <label for="15">
+                        <input type="checkbox" name="faculty" class ="faculty" id="QTKD" value="Khoa Quản trị kinh doanh"/>Khoa Quản trị kinh doanh</label>
+                      <label for="16">
+                        <input type="checkbox" name="faculty" class ="faculty" id="MTCN" value="Khoa Mỹ thuật công nghiệp" />Khoa Mỹ thuật công nghiệp</label>
+                      <label for="17">
+                        <input type="checkbox" name="faculty" class ="faculty" id="LUAT" value="Khoa luật"/>Khoa luật</label>
+                      <label for="18">
+                          <input type="checkbox" name="faculty" class ="faculty" id="DDT" value="Khoa Điện-điện tử"/>Khoa Điện-điện tử</label>
+                      <label for="19">
+                          <input type="checkbox" name="faculty" class ="faculty" id="KMT" value="Khoa Môi trường và bảo hộ lao động"/>Khoa Môi trường và bảo hộ lao động</label>
+                      <label for="20">
+                          <input type="checkbox" name="faculty" class ="faculty" id="LDCD" value="Khoa Lao động công đoàn"/>Khoa Lao động công đoàn</label>
+                      <label for="21">
+                          <input type="checkbox" name="faculty" class ="faculty" id="TCNH" value="Khoa Tài chính ngân hàng"/>Khoa Tài chính ngân hàng</label>
+                      <label for="22">
+                          <input type="checkbox" name="faculty" class ="faculty" id="GDQT" value="Khoa giáo dục quốc tế"/>Khoa giáo dục quốc tế</label>
+                 
+                    </div>
+                  </div>
+           
             </div>
-            <button class="btn btn-lg btn-block btn-primary mb-3">
+            
+           
+         
+            <button id="btnSignUp"class="btn btn-lg btn-block btn-primary mb-3">
                 Sign up
             </button>            
             <hr>

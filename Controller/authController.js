@@ -8,8 +8,9 @@ const {JWT_SECRET}=process.env
 const post = require("../models/post")
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
-const multer = require("multer");
+const notify = require('../models/notification')
 const checkAuthen = require('../middleWare/checkAuthenGG');
+
 exports.loginGG= (req,res)=>{
     let token = req.body.token
     //console.log(token);
@@ -107,7 +108,7 @@ exports.loginGG= (req,res)=>{
 exports.signup=(req,res)=>{
     var{faculty,email, password,passwordComfirm}= req.body;
  
-    console.log(faculty);
+    //console.log("faculty",faculty);
     bcrypt.hash(password, 10, (err, hashedPass)=>{
         if(err){
             res.json({
@@ -118,7 +119,7 @@ exports.signup=(req,res)=>{
             let newAccount = new accountF({
                 faculty : faculty,
                 fullname:email,
-                picture:'https://www.google.com/search?q=icon+tdtu&sxsrf=ALeKk026AlBF57vUIRjGBzMDhIFHbiMy3A:1617895078565&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiY9cPr-O7vAhUCHXAKHVvMABIQ_AUoAXoECAEQAw&biw=1366&bih=657#imgrc=IxP7nK1vsf3FHM',
+                picture:'https://images.squarespace-cdn.com/content/v1/5930dc9237c5817c00b10842/1557979868721-ZFEVPV8NS06PZ21ZC174/ke17ZwdGBToddI8pDm48kBtpJ0h6oTA_T7DonTC8zFdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIBqmMCQ1OP129tpEIJko8bi_9nfbnt8dRsNvtvnXdL8M/images.png',
                 email: email,
                 password: hashedPass
             })
@@ -474,5 +475,35 @@ exports.deleteComment= (req,res)=>{
         }
     }
   
+}
+
+// đăng thông báo của từng khoa
+exports.createNotify=(req,res)=>{
+    var{faculty,messageText,email,titleText}= req.body
+
+    images = req.files;
+    var pathImage=[]
+    var image=[]
+    //console.log(images.length);
+    for(var i =0;i<images.length;i++){
+        //console.log(images[i].originalname);
+        pathImage=`public/upload/${images[i].originalname}`
+        fs.renameSync(images[i].path,pathImage)
+        image.push(pathImage.slice(6))
+    }
+    let newNotify= notify({
+        faculty:faculty , 
+        title:titleText  ,
+        content: messageText,
+        email:email,
+        image:image
+    
+    })
+    newNotify.save()
+    .then(()=>{
+        console.log("đã thêm thông báo thành công")
+        res.redirect('/createNotification')
+    })
+    .catch(e=>console.log(e))
 }
 
