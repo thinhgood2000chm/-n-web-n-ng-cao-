@@ -8,8 +8,9 @@ const {JWT_SECRET}=process.env
 const post = require("../models/post")
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
-const notify = require('../models/notification')
+
 const checkAuthen = require('../middleWare/checkAuthenGG');
+const notification = require('../models/notification');
 
 exports.loginGG= (req,res)=>{
     let token = req.body.token
@@ -491,7 +492,7 @@ exports.createNotify=(req,res)=>{
         fs.renameSync(images[i].path,pathImage)
         image.push(pathImage.slice(6))
     }
-    let newNotify= notify({
+    let newNotify= notification({
         faculty:faculty , 
         title:titleText  ,
         content: messageText,
@@ -507,3 +508,45 @@ exports.createNotify=(req,res)=>{
     .catch(e=>console.log(e))
 }
 
+
+// xóa thông báo của phòng khoa
+exports.deleteNoti= (req,res)=>{
+    var {id}=req.body
+    console.log(id);
+    if(id!==''){
+        notification.findByIdAndRemove(id).then(()=>{
+            console.log("xóa dữ liệu thành công");
+            res.json({code:0, message:"xóa thông báo thành công", data:{id:id}})
+           
+        })
+       
+    }
+    else res.redirect("/error-page")
+}
+
+// update thông báo của phòng khoa
+exports.updateNoti=(req,res)=>{
+    var {id,titleTextUpdate, messageTextUpdate,faculty}= req.body
+    console.log(id,titleTextUpdate, messageTextUpdate,faculty);
+    images= req.files
+    var image=[]
+    var pathImage=[]
+    for(var i=0;i<images.length;i++){
+        pathImage=`/public/upload/${images[i].originalname}`
+        fs.renameSync(images[i].path, pathImage)
+        image.push(pathImage.slice(6))
+    }
+    data={
+        image: image,
+        faculty: faculty,
+        title: titleTextUpdate,
+        content: messageTextUpdate
+    }
+    console.log(data);
+    notification.findOneAndUpdate({_id:id},{$set:data})
+    .then(()=>{
+        console.log(" chỉnh sửa thông báo thành công ");
+        res.redirect('/createNotification')
+    })
+    .catch(e=>console.log(e))
+}

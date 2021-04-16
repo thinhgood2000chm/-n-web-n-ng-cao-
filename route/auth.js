@@ -15,4 +15,6 @@ router.post("/commentPost",authController.commentPost)
 //router.post('/updateComment',authController.updateComment)
 router.post('/deleteComment', authController.deleteComment)
 router.post('/createNotify',upload.array('imageUploads',12),authController.createNotify)
+router.post("/deleteNoti",authController.deleteNoti)
+router.post("/updateNoti",upload.array("imageUploadsUpdate"),authController.updateNoti)
 module.exports=router

@@ -602,6 +602,64 @@ $(".classComment").keyup(event=>{
       document.getElementById("main").style.marginLeft= "0";
     })
 
+    $(".btnDeleteNoti").click(e=>{
+   
+      var btn = e.target
+      var id = btn.dataset.id
+      console.log(id);
+      fetch('http://localhost:3000/deleteNoti',{
+        method:"post",
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify({id:id})
+      })
+      .then(res=>res.json())
+      .then(json=>{
+        console.log(json);
+        if(json.code===0){
+          id= json.data.id
+          document.getElementById(id).remove()
+       
+          // alert thông báo xóa thành công 
+          $("#response").animate({height: '+=72px' }, 300);
+      
+      $('<div class="alert alert-success">' +
+        '<button type="button" class="close" data-dismiss="alert">' +
+        '&times;</button>"xóa thông báo thành công"</div>').hide().appendTo('#response').fadeIn(1000);
+        
+        $(".alert").delay(2000).fadeOut("normal",function(){
+          $(this).remove();
+          });
+          $("#response").delay(2000).animate({
+            height: '-=72px'
+        }, 300);
+        }
+
+      })
+
+    })
+   
+    // upload thông bao
+    $(".btnUpdateNoti").click(e=>{
+      var btn = e.target
+      var id= btn.dataset.id
+      var titleNoti = btn.dataset.title
+      var contentNoti= btn.dataset.content
+
+      $("#myModalUpdate").show()
+      $(".close").click(()=>{
+        $("#myModalUpdate").hide()
+      })
+      var idUpdateNoti= document.getElementById("idUpdateNoti")
+      idUpdateNoti.value=id
+      var title = document.getElementById("title-text-update")
+      var content= document.getElementById("message-text-update")
+      title.value=titleNoti
+      content.value=contentNoti
+
+    })
+
     /*$('#my-button').click(function(){
         $('#my-file').click();
     });*/

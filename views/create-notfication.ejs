@@ -17,6 +17,7 @@
 </head>
 <body>
     <main role="main" class="container">
+            
         <div class="d-flex align-items-center p-3 my-3 text-black-50 bg-primary rounded box-shadow">
            
             <div class="lh-100">
@@ -29,6 +30,9 @@
                 </svg>
                 Tạo
               </button>
+
+              <br>
+            
     
               <!-- The Modal -->
               <div class="modal" id="myModal">
@@ -74,9 +78,7 @@
                                             <label for="image_uploads">Choose images to upload (PNG, JPG, JPEG)</label>
                                             <input class="fa fa-image icon" type="file"  name="imageUploads" accept=".jpg, .jpeg, .png" multiple aria-hidden="true">
 
-                                            <!--<label for="file-input" class="col-form-label">Input your file or images:</label>
-                                            <span type="button" class="fa fa-image icon" id="my-button" value="Upload image"></span>
-                                            <input type="file" class="d-none" name="myFile" id="my-file" accept=".jpg, .jpeg, .png" >-->
+                                         
                                         
                                             <!--<span class="fa fa-file icon " type="button" id="my-button2" value="Upload file"></span>
                                             <input type="file" class="d-none" name="my_file" id="my-file2"  >-->
@@ -99,6 +101,93 @@
           </div>
     </main>
     
+    <div class ="container">
+          <!--alert thông báo-->
+          <div id="response"></div>
+    
+
+        <%infoNoti.forEach(i=>{%>
+
+            <div class="card" id="<%=i._id%>">
+                <div class="card-header"><h3><%=i.faculty%></h3></div>
+                <div class="card-body">
+                  <h4><a href="/detailNotify" id="styleFont"><%=i.title%></a></h4>
+                </div>
+                <div class="card-fooder">
+                    <button class="btn btn-danger btnDeleteNoti" id="btnDeleteNoti" data-id="<%=i._id%>"> xóa thông báo</button>
+                    <button class="btn btn-warning btnUpdateNoti" id="btnUpdateNoti" data-id="<%=i._id%>" data-title="<%=i.title%>" data-content="<%=i.content%>"> chỉnh sửa thông báo</button>
+                </div>
+            </div>
+        
+       <% })%>
+ 
+
+        <!-- The Modal -->
+        <div class="modal" id="myModalUpdate">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              
+                <div class="container">
+                    <div class="container-fluid p-3 ">
+                        <div class="modal-header">
+                            <h1>Created Notfications</h1>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <form action="/updateNoti" method="post"  enctype="multipart/form-data">
+                        <div class="modal-body">
+                            
+                                    <!--phần chủ đề-->
+                                    
+                                <input type="hidden" name="id"value="" id="idUpdateNoti">
+                                        <input type="hidden" name="email" value="<%=info.email%>">
+                                        <div class="form-floating">
+                                        <div class="department-select" >
+                                            <h5>Vui lòng chọn Phòng/ Khoa</h5>
+                                            <select class="form-select"name ="faculty">
+                                                <option>..Choose</option>
+                                                <%for(var i=0; i<info.faculty.length; i++){%>
+                                              
+                                                <option><%=locals.info.faculty[i]%></option>
+                                              <%}%>
+                                            </select>
+                                        </div>
+                                        </div>
+                                        <!--title thông báo-->
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label">title:</label>
+                                            <textarea class="form-control" id="title-text-update" name="titleTextUpdate"></textarea>
+                                        </div>
+                                    <!--nội dung thông báo-->
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Message:</label>
+                                        <textarea class="form-control" id="message-text-update"name="messageTextUpdate"></textarea>
+                                    </div>
+                                    <!--input file-->
+                                    <div class="form-group">
+                                        <i class="bi bi-file-earmark-richtext"></i>
+                                        <label for="image_uploads">Choose images to upload (PNG, JPG, JPEG)</label>
+                                        <input class="fa fa-image icon" type="file"  name="imageUploadsUpdate" accept=".jpg, .jpeg, .png" multiple aria-hidden="true">
+
+                                     
+                                    
+                                        <!--<span class="fa fa-file icon " type="button" id="my-button2" value="Upload file"></span>
+                                        <input type="file" class="d-none" name="my_file" id="my-file2"  >-->
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger">Update</button>
+                                      </div>
+                            
+                                </form>
+                             
+                        </div>
+                    </div> 
+                </div>
+                <!-- Modal footer -->
+             
+          
+          </div>
+        </div>
 </body>
 
 </html>

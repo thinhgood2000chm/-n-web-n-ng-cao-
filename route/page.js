@@ -7,6 +7,7 @@ const accountStudent = require("../models/accountStudent");
 const accountF = require('../models/account')
 const notification = require('../models/notification')
 const checkAuthen = require("../middleWare/checkAuthenGG")
+const authController = require('../Controller/authController')
 const CLIENT_ID='100847206415-rbdoqmgsbdvlik3s3nmukildi3mbpivg.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
 
@@ -68,7 +69,7 @@ router.get('/admin',checkAuthen,(req,res)=>{
     res.render("admin")
 })
 
-router.get('/error',(req,res)=>{
+router.get('/error-page',(req,res)=>{
     let user = req.user
     res.render('error')
 })
@@ -155,25 +156,29 @@ router.get('/edit-account',(req,res)=>{
     }
   
 })
-
+// tạo thông báo
 router.get('/createNotification',checkAuthen,(req,res)=>{
     var token =  req.cookies.jwt;
     if(token){
         var email = req.cookies.account
         console.log("email",email);
         accountF.findOne({email: email},(err, info)=>{
-            console.log(info.faculty);
-            res.render('create-notfication',{info})
+            notification.find({email:email},(err, infoNoti)=>{
+                console.log(info.faculty);
+                res.render('create-notfication',{info, infoNoti})
+            })
+         
         })
-       /* .then(info=>{
-            
-        })
-        .catch(e=>console.log(e))*/
 
     }
     else res.redirect('/')
     
 })
+// chỉnh sửa thông báo
+//router.get("/deleteNoti/:id",authController.deleteNoti)
+
+
+
 
 router.get('/notification',checkAuthen,(req,res)=>{
     notification.find({},(err, doc)=>{
@@ -335,5 +340,7 @@ router.get('/PhongLC',checkAuthen,(req,res)=>{
         res.render("department-notfication",{doc,faculty:"TDT Creative Language Center"})
     })
 })
+
+
 
  module.exports= router

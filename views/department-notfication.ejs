@@ -50,16 +50,10 @@
         <h3><%=locals.faculty%></h3>
         <%doc.forEach(d=>{%>
        <div class="card">
-      
-        <!--<div class="card-header">
-          
-        </div>-->
-        
 
         
         <div class="card-body">
-          <h2><font id="styleFont"><%=d.title%></font></h2>
-          <%=d.content%>
+          <h4><a href="/detailNotify" id="styleFont"><%=d.title%></a></h4>
         </div>
       <%})%>
       </div>
