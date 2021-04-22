@@ -209,12 +209,13 @@ exports.changeProfile2= (req, res)=>{
 exports.changeProfile1=(req,res)=>{
 
     images = req.file;
-    //console.log("image",images)
-    pathImage= `public/upload/${images.originalname}`
-   // console.log(image);
-    fs.renameSync(images.path,pathImage)
-    var image = pathImage.slice(6)
-
+    console.log("images",images);
+    if(images!==undefined){
+        pathImage= `public/upload/${images.originalname}`
+    // console.log(image);
+        fs.renameSync(images.path,pathImage)
+        var image = pathImage.slice(6)
+    }
     var {email,username, biography} = req.body
     console.log(username, biography, email);
     let updateData = {
@@ -549,4 +550,9 @@ exports.updateNoti=(req,res)=>{
         res.redirect('/createNotification')
     })
     .catch(e=>console.log(e))
+}
+exports.loadWindowScroll= (req,res)=>{
+    post.find({},(err, doc)=>{
+        res.json({code:0, data:doc})
+    })
 }

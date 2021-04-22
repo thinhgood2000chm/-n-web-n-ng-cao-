@@ -34,6 +34,142 @@ console.log('User signed out.');
 
 
 $(document).ready(function(){
+
+  window.addEventListener('scroll',()=>{
+    //console.log("you scrool tyto the end pge");
+        // fetch api to get scroll
+       
+        if($(window).scrollTop() + $(window).height() >= $('#listCard').height()){
+          console.log("da vai day");
+      
+          fetch('http://localhost:3000/loadWindowScroll',{
+            method: "POST"
+          })
+          .then(res=>res.json())
+          .then(json=>{
+            console.log(json);
+            for(var i =0;i<json.data.length;i++){
+              console.log("da vao i ");
+              for(var j =0;j<json.data[i].image.length;j++){
+                console.log("dav vao j ");
+                for(var z =0;z<json.data[i].comment.length;z++){
+                  console.log("da vao z");
+                  console.log(json.data[i].comment[z].content);
+                    console.log("123",`${json.data[i].image[j]}`);
+                  /*
+                    z ko có nên nó ko chạy vào z 
+                  */ 
+                   var htmlLoad=$(
+                     `<div class="card" >
+                   <div class="card-body h-100">
+                       <div class="media">
+                     
+                       
+                           <img src="${json.data[i].imageUser}" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">
+                           <div class="media-body" >
+                             <div id="${json.data[i]._id}">
+                               <p class="mb-2"><strong>${json.data[i].name}</strong></p>
+                               <p>${json.data[i].message}</p>
+                                 <!--hình ảnh được upload-->
+                               <div class="row no-gutters mt-1">
+                           
+                                   <div class="col-6">
+                                       <img src="${json.data[i].image[j]}" class="img-fluid pr-1" alt="Unsplash" >
+                                   </div>
+                             
+                               </div>
+       
+                               <small class="text-muted">${json.data[i].updatedAt}</small><br><!--time real dòng trạng thái-->
+                               <!--nút like-->
+                               <a href="#" class="btn btn-sm btn-danger mt-1"><i class="fa fa-heart-o"></i>Like</a>
+                               
+                               <!--nút bình luận-->
+                                 <a href="#comment" class="btn btn-sm btn-danger mt-1"><i class="fa fa-comments-o"></i> comment</a>
+                               <!--dòng bình luận-->
+                           
+                               <div class="media mt-3" id="${json.data[i]._id}">
+                               
+                                   <a class="pr-2" href="#">
+                                   <img src="${json.data[i].comment[z].imageUserComment}" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
+                                   </a>
+                                  
+                 
+                                   <div class="media-body UpdateDelete" ><!--id ở đây dùng để xóa comment ko cần load lại trang -->
+                                       <p class="text-muted textComment" >
+                                           <strong>">${json.data[i].comment[z].nameUserComment}</strong>: ${json.data[i].comment[z].content}
+                                           <input type="hidden" value="<%=c.emailUComment%>" class="emailUCommentId">
+                                       </p>
+                                       <a href="#comment" data-index="${i}" data-id="${json.data[i].comment[z]._id}"data-comment=" ${json.data[i].comment[z].content}" data-userCurrent="${json.data[i].comment[z].emailUComment}" class="text-comment updateComment">chỉnh sửa</a>
+                                       <a  data-id="${json.data[i]._id}"data-idComment="${json.data[i].comment[z]._id}" class="text-comment deleteComment" data-userCurrent="${json.data[i].comment[z].emailUComment}">xóa</a>
+                                   </div>
+                               </div>
+                   
+                             </div>
+                               <hr>
+                               <!--dòng comment line trang tin-->
+                               <div class="row">
+                                 <div class="col-auto">
+               
+                                   <!-- Avatar -->
+                                   <div class="avatar avatar-sm">
+                                   
+                                     <img src="${json.data[i].picture}" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
+                                   </div>
+               
+                                 </div>
+                                 <div class="col ml-n2">
+               
+                                   <!-- Input -->
+                                   <div class="mt-1" id="parentComment">
+                                     <label class="sr-only">Leave a comment...</label>
+                                     <textarea data-id ="${json.data[i]._id}" id="comment"class="form-control form-control-flush classComment" data-toggle="autosize" rows="1" placeholder="Leave a comment" ></textarea>
+                                   <button><i class="fa fa-send"></i> </button>
+                                   </div>
+                                   
+                               
+                                 </div>
+                                 
+                                 <div class="col-auto align-self-end">
+               
+                                   <!-- Icons input file phần bình luân -->
+                                   <div class="input-container mb-2">
+                                     <a class="text-reset mr-3" href="#!" type="file" data-toggle="tooltip" title="" data-original-title="Add photo">
+                                       <i class="fa fa-camera"></i>
+                                     </a>
+                                     <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="" data-original-title="Attach file">
+                                       <i class="fa fa-paperclip"></i>
+                                     </a>
+                                     
+                                   </div>
+               
+                                 </div>
+                           
+                               </div>
+                               <hr>
+                           </div>
+                         
+                       </div>
+                     </div>
+                   </div>`)
+                  
+                   $("#listCard").append(htmlLoad)
+           
+
+                }
+              }
+            }
+       
+            
+    
+           //var html =$(`<p>q2we</p>`)
+        
+           //$("#listCard").append(html)
+          })
+   
+    
+    }
+  })
+
   // js chạy select muti trong sign up
   $('#showCheckboxes').click(()=>{
     var expanded = false;
@@ -113,11 +249,20 @@ $(document).ready(function(){
             data: formData
         }).done(function(ketqua) {
 
-            console.log("ketqua",ketqua.data);
+           // console.log("ketqua",ketqua.data);
             if(ketqua.code===0){
                 console.log(" da vao day ");
-                var parentMedia = document.getElementById("parentMedia")
-                var parentMediaBody= document.getElementById("parentMediaBody")
+                var parentOfCard= document.getElementById("parentOfCard")
+                var card = document.createElement('div')
+                setAttributes(card,{"class":"card"})
+                var cardBody= document.createElement("div")
+                setAttributes(cardBody,{"class":"card-body h-100"})
+                var parentMedia=document.createElement("div")
+                setAttributes(parentMedia,{"class":"media"})
+                var parentMediaBody= document.createElement("div")
+                setAttributes(parentMediaBody,{"class":"media-body"})
+               // var parentMedia = document.getElementById("parentMedia")
+                //var parentMediaBody= document.getElementById("parentMediaBody")
                 var imageUser = document.createElement("img")
                 //set ảnh đại diện
                 setAttributes(imageUser,{"src":ketqua.data.imageUser,"class":"rounded-circle mr-3","width":"56", "height":"56"})
@@ -254,6 +399,9 @@ $(document).ready(function(){
 
 
                 parentMedia.appendChild(parentMediaBody)
+                cardBody.appendChild(parentMedia)
+                card.appendChild(cardBody)
+                parentOfCard.appendChild(card)
         
             }
         });
@@ -594,6 +742,18 @@ $(".classComment").keyup(event=>{
       document.getElementById("main").style.marginLeft = "300px";
     })
 
+    // thiết lập file edit account ( phân quyền đổi tài khoản hoặc mật khẩu )
+    if( $("#emailOfChaneProfile").val().includes("@student.tdtu.edu.vn")){
+      var addNewClass = document.getElementById("linlkChangePass")
+      addNewClass.classList.add("disabled")
+    }
+    else {
+       var addNewClass = document.getElementById("linkOfChangeProfile")
+       var addNewClassPass = document.getElementById("linlkChangePass")
+       addNewClass.classList.add("disabled")
+       addNewClass.classList.remove("active")
+       addNewClassPass.classList.add("active")
+    }
     
     
 
@@ -660,35 +820,14 @@ $(".classComment").keyup(event=>{
 
     })
 
+
+   
+
+
     /*$('#my-button').click(function(){
         $('#my-file').click();
     });*/
 
-    // thiết lập hiển thị xóa sửa trong comment
-    /*var UpdateDelete = document.getElementsByClassName("UpdateDelete")
-    var emailUCommentId= document.getElementsByClassName("emailUCommentId")
-   //console.log(UpdateDelete.length,emailUCommentId.length);
-    for(var i =0;i<UpdateDelete.length;i++){
- 
-     
-      var emailCurrentUser = document.getElementById("hiddenEmailOfPost").value
-     
-        if(emailUCommentId[i].value===emailCurrentUser){
-          console.log(emailUCommentId,emailCurrentUser);
-          console.log("da vao day");
-        var UpdateLink = document.createElement("a")
-        setAttributes(UpdateLink,{"class":"text-comment updateComment", "href":"#comment"})
-        var nodeUpdateLink = document.createTextNode("chỉnh sửa")
-        UpdateLink.appendChild(nodeUpdateLink)
-        var deleteLink = document.createElement("a")
-        setAttributes(deleteLink,{"class":"text-comment"})
-        var nodeDeleteLink = document.createTextNode("xóa")
-        deleteLink.appendChild(nodeDeleteLink)
-      UpdateDelete[i].appendChild(UpdateLink)
-      UpdateDelete[i].appendChild(deleteLink)
-      }
-
-      
-    }*/
+    
   
 })

@@ -1,15 +1,95 @@
-<div class="form-group p-5 mr-2 sw-50" id="dialog">
-        <div class="alert alert-danger alert-dismissible fade show">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <p class="text-center">Đổi mật khẩu thành công</p>
-        </div>
-    </div>
-    
-   
-    <script>
-        $().ready(function(){
 
-        $('div.alert').delay(1500);
-        $('div.alert').hide(1000);
-        });
-    </script>
+            /*
+            let htmlLoad=$(` <div class="card" >
+            <div class="card-body h-100">
+                <div class="media">
+              
+                
+                    <img src="${json.data[i].imageUser}" width="56" height="56" class="rounded-circle mr-3" alt="Ashley Briggs">
+                    <div class="media-body" >
+                      <div id="${json.data[i]._id}">
+                        <p class="mb-2"><strong>${json.data[i].name}</strong></p>
+                        <p>${json.data[i].message}</p>
+                          <!--hình ảnh được upload-->
+                        <div class="row no-gutters mt-1">
+                    
+                            <div class="col-6">
+                                <img src="${json.data[i].image[j]}" class="img-fluid pr-1" alt="Unsplash" >
+                            </div>
+                      
+                        </div>
+
+                        <small class="text-muted">${json.data[i].updatedAt}</small><br><!--time real dòng trạng thái-->
+                        <!--nút like-->
+                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="fa fa-heart-o"></i>Like</a>
+                        
+                        <!--nút bình luận-->
+                          <a href="#comment" class="btn btn-sm btn-danger mt-1"><i class="fa fa-comments-o"></i> comment</a>
+                        <!--dòng bình luận-->
+                    
+                        <div class="media mt-3" id="">${json.data[i]._id[z]}">
+                        
+                            <a class="pr-2" href="#">
+                            <img src="${json.data[i].comment[z].imageUserComment}" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
+                            </a>
+                           
+          
+                            <div class="media-body UpdateDelete" ><!--id ở đây dùng để xóa comment ko cần load lại trang -->
+                                <p class="text-muted textComment" >
+                                    <strong>">${json.data[i].comment[z].nameUserComment}</strong>: ${json.data[i].comment[z].content}
+                                    <input type="hidden" value="<%=c.emailUComment%>" class="emailUCommentId">
+                                </p>
+                                <a href="#comment" data-index="${i}" data-id="${json.data[i].comment[z]._id}"data-comment=" ${json.data[i].comment[z].content}" data-userCurrent="${json.data[i].comment[z].emailUComment}" class="text-comment updateComment">chỉnh sửa</a>
+                                <a  data-id="${json.data[i]._id}"data-idComment="${json.data[i].comment[z]._id}" class="text-comment deleteComment" data-userCurrent="${json.data[i].comment[z].emailUComment}">xóa</a>
+                            </div>
+                        </div>
+            
+                      </div>
+                        <hr>
+                        <!--dòng comment line trang tin-->
+                        <div class="row">
+                          <div class="col-auto">
+        
+                            <!-- Avatar -->
+                            <div class="avatar avatar-sm">
+                            
+                              <img src="${json.data[i].picture}" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
+                            </div>
+        
+                          </div>
+                          <div class="col ml-n2">
+        
+                            <!-- Input -->
+                            <div class="mt-1" id="parentComment">
+                              <label class="sr-only">Leave a comment...</label>
+                              <textarea data-id ="${json.data[i]._id}" id="comment"class="form-control form-control-flush classComment" data-toggle="autosize" rows="1" placeholder="Leave a comment" ></textarea>
+                            <button><i class="fa fa-send"></i> </button>
+                            </div>
+                            
+                        
+                          </div>
+                          
+                          <div class="col-auto align-self-end">
+        
+                            <!-- Icons input file phần bình luân -->
+                            <div class="input-container mb-2">
+                              <a class="text-reset mr-3" href="#!" type="file" data-toggle="tooltip" title="" data-original-title="Add photo">
+                                <i class="fa fa-camera"></i>
+                              </a>
+                              <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="" data-original-title="Attach file">
+                                <i class="fa fa-paperclip"></i>
+                              </a>
+                              
+                            </div>
+        
+                          </div>
+                    
+                        </div>
+                        <hr>
+                    </div>
+                  
+                </div>
+              </div>
+            </div>`)
+            $("#list-card").append(htmlLoad)
+            */

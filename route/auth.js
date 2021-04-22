@@ -17,4 +17,5 @@ router.post('/deleteComment', authController.deleteComment)
 router.post('/createNotify',upload.array('imageUploads',12),authController.createNotify)
 router.post("/deleteNoti",authController.deleteNoti)
 router.post("/updateNoti",upload.array("imageUploadsUpdate"),authController.updateNoti)
+router.post('/loadWindowScroll',authController.loadWindowScroll)
 module.exports=router

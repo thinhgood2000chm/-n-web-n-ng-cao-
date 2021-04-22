@@ -193,10 +193,11 @@
                                       </svg></svg> comment</a>
                                     
                                     <!--dòng bình luận-->
+                                    <%docs[i].comment.forEach(c=>{%>
                                     <div class="media mt-3">
-                                      <%docs[i].comment.forEach(c=>{%>
+                                    
                                         <a class="pr-2" href="#">
-                                        <img src="<%=c.imageUserString%>" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
+                                        <img src="<%=c.imageUserComment%>" width="36" height="36" class="rounded-circle mr-2" alt="Stacie Hall">
                                         </a>
                                         
                                         <div class="media-body">
@@ -204,8 +205,9 @@
                                                 <strong><%=c.emailUComment%></strong>: <%=c.content%>
                                             </p>
                                         </div>
-                                        <%})%>
+                                       
                                     </div>
+                                    <%})%>
                                     <hr>
                                     <!--dòng comment line trang tin-->
                                     <div class="row">
